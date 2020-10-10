@@ -7,7 +7,9 @@
   <h1>My Google Login Project</h1>
   {% if user.is_authenticated %}
   <p>Welcome, {{ user.username }} !</p>
- 
+  <form action="{% url 'microdonate:usercheck' %}" method="GET" class = "form">
+    <button type="submit" class="btn btn-primary"> Go to Dashboard </button>
+  </form>
   {% else %}
   <h1>Google Login</h1>
   <a href="{% provider_login_url 'google' %}">Login with Google</a>
@@ -15,3 +17,10 @@
 
   </body>
 </html>
+
+<!-- create google login when pull form form
+another from google login: pull more info from tutor fields 
+pull those fields for models
+call both of those forms for views -->
+
+<!-- catherine had a model in a model with 1-to-1 -->
