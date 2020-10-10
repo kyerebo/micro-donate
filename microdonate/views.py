@@ -9,11 +9,11 @@ def check(request):
     if(request.user.is_authenticated):
         for p in Profile.objects.all():
             if(p.user_name == request.user.username):
-                return HttpResponseRedirect(reverse('microdonate:dashboard'))
+                return HttpResponseRedirect(reverse('dashboard'))
         acc = Profile.objects.create(user_name = request.user.username, account = request.user, xp = 0)
         acc.save()
-        return HttpResponseRedirect(reverse('microdonate:dashboard'))
+        return HttpResponseRedirect(reverse('dashboard'))
     else:
-        return HttpResponseRedirect(reverse('microdonate:login'))
+        return HttpResponseRedirect(reverse('mainlogin'))
                 
         
