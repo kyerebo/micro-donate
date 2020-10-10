@@ -5,7 +5,7 @@ from .models import Profile
 def index(request):
     return HttpResponse("You're Looking at a functioning Django Page")
 
-def usercheck(request):
+def check(request):
     if(request.user.is_authenticated):
         for p in Profile.objects.all():
             if(p.user_name == request.user.username):
