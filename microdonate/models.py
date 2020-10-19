@@ -16,17 +16,13 @@ class Profile(models.Model):
 class Donate(models.Model):
     donate_name = models.CharField(max_length=200)
 
-    donate_user = models.ForeignKey(
-        Profile, on_delete = models.CASCADE
-    )
+    donate_users = models.ManyToManyField(Profile)
     # ...
 
 class Volunteer(models.Model):
     volunteer_name = models.CharField(max_length=200)
 
-    volunteer_user = models.ForeignKey(
-        Profile, on_delete = models.CASCADE
-    )
+    volunteer_users = models.ManyToManyField(Profile)
     # ...
 
 
