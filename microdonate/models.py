@@ -16,13 +16,13 @@ class Profile(models.Model):
 class Donate(models.Model):
     donate_name = models.CharField(max_length=200)
 
-    donate_users = models.ManytoManyField(Profile)
+    donate_users = models.ManyToManyField(Profile)
     # ...
 
 class Volunteer(models.Model):
     volunteer_name = models.CharField(max_length=200)
 
-    volunteer_users = models.ManytoManyField(Profile)
+    volunteer_users = models.ManyToManyField(Profile)
     # ...
 
 
