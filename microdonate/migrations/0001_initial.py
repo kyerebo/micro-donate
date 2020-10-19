@@ -22,21 +22,5 @@ class Migration(migrations.Migration):
                 ('xp', models.IntegerField(default=0)),
                 ('account', models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
-        ),
-        migrations.CreateModel(
-            name='Volunteer',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('volunteer_name', models.CharField(max_length=200)),
-                ('volunteer_users', models.ManyToManyField(to='microdonate.Profile')),
-            ],
-        ),
-        migrations.CreateModel(
-            name='Donate',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('donate_name', models.CharField(max_length=200)),
-                ('donate_users', models.ManyToManyField(to='microdonate.Profile')),
-            ],
-        ),
+        )
     ]
