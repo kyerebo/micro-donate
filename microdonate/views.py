@@ -1,9 +1,12 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
+from django.shortcuts import render
 from django.contrib.auth.models import User
 from .models import Profile
 def index(request):
-    return HttpResponse("You're Looking at a functioning Django Page")
+    user = request.user
+    context = {'user' : user}
+    return render(request, 'microdonate/dash.html', context)
 
 def check(request):
     if(request.user.is_authenticated):
