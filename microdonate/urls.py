@@ -24,5 +24,6 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name="microdonate/google.html"), name = "login"),
     path('usercheck/', views.check, name="usercheck"),
     path('dash/', views.index, name="dashboard"),
+    path('progress/', views.progress, name="progress"),
     path('accounts/', include('allauth.urls'), name="accounts"),
 ]
