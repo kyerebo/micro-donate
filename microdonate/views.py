@@ -1,7 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.models import User
-from .models import Profile
+from .models import Profile, Volunteer, Donate
 from django.shortcuts import render
 
 def index(request):
@@ -35,11 +35,19 @@ def profile(request):
         else:
             percentage = int(100*(prof.xp-levels[level])/(levels[level+1]-levels[level]))
             needed = levels[level + 1] - prof.xp
+        volunteers = list()
+        for v in Volunteer.objects.filter(volunteer_users=prof):
+            volunteers.append(v)
+        donates = list()
+        for d in Donate.objects.filter(donate_users=prof):
+            donates.append(d)
         return render(request, 'microdonate/profile.html', {
             'level': level,
             'percent' : percentage,
             'xp' : prof.xp,
-            'needed' : needed
+            'needed' : needed,
+            'Volunteers' : volunteers,
+            'Donates' : donates
         })
     else:
         return HttpResponseRedirect(reverse('mainlogin'))
