@@ -2,6 +2,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.models import User
 from .models import Profile
+from django.shortcuts import render
+
 def index(request):
     return HttpResponse("You're Looking at a functioning Django Page")
 
