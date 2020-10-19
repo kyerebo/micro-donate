@@ -1,14 +1,14 @@
 language: python
 python:
-  - "3.8"
+- '3.8'
 install:
-  - pip install -r requirements-travis.txt
+- pip install -r requirements-travis.txt
 script:
-  - python manage.py test
+- python manage.py test
 deploy:
   provider: heroku
   api_key:
-    secure: mBKk9PMqdZky3b+SBPzH/1zeDQBJQNcC92B4mh27pOS3CMlgizKbAVRtlVDo905v9grqbSjT20W0Lje7979bXB1nmQpZzYI+I7ra4IDA1yo9954HcOOWL+zablWfJY9pchmz7pxZoz51E+VT6D2cCb7R6tOcwHBhFsmpotDWJ5/A+v6WSM3Co09aDC3AIROeCNpxxxAfyj9z2bzTgCmt/B8XRjnSB1EeYDRYfYMcY18Y0IUhJSvaCVWXDFQ/+qX7V1ngC/vbdOhjdPjKfIJyUq4A2PyXzxz1sU+ASSpWDM2jUTPqpFjnXfq/lRz+iyjOa/1qd/UQ68Lktd6yZ4nw1DjbV1fISmyq32LMk4HLIyX7t+jgHJjSNrHHoQsLdwkmhNo+yxyODnwasTOgoNbCB+jfIPD4GfKSjNoMXNRdiMFcYjjdfwfpDme/fIeALZDMGTr6qahX8TzOkhJL6uoHqJ1DVGg/gJ2JMAqw21DbRZiYgSiIcjR1ifvTsoawvJKrwXfnr7LcdMcKVA+t7vcUdrh1vaDagAwjhRQpidHoGEvVlQVnpi74gvjzFh00kYZ7nvwNLSiTHC+dXjabhUy2DXFU95YsTi8E895spBWeTbMypI2sJtL9FkJh+bQ41bYJQLYMpbcS1xjA0S74hsxfuEjRaRrvZBLV7F1L88VQU+I=
+    secure: y+RZ5xmsJn1PkMOG0vk11ze3TbEZ6vU4lNhAlD8jnbSJ0TX5R3RuZtzhtin4bI4PuhlhxIHFQ8FUgguLCohQK2iNmn6I7CFbXOA5asLjG6x1IV6pKA7bA3jJ9ZRhYgLZLOcww9mhwPFyO/j9yVZ1Fn+groNUdA7iwMvdzM8CPzP8geUplenXheFqeqN/l/LOMdO+67NW5LtWT+G52JRt/U1OfYLMfRXGxBxmww4OJtXhDKihn7ZeHrZkXfRRfcnAi6FfdM93C53ewm0BKBGdga59IlaMdM5NARzOCGHHuV+A/KZ5vShobbzBeNCGQKdmbfXCiQBxhdX1iGWHsLDYl/+uQz/1RwlrGQxb4iyo+6ROXXnBLoE3GVC06XPtMi6q9FzAL6CGyTmFvuan8U48v109X48fL1nNA2/BPlmdbZ2uV6azQExbH0yxZCGe0eFF5jPcFdkVjF5tpIQ71a9cavx46/9BB0MOwwD7RQdvLzJQtkOGRa/11AvWDkB1lGAiZEfpslmjhLvHJvhzMeePopfBrLB7VVnBb/dU7VKleAhJxHIJ0VpCM0YXDUwqKtIbEbYk9DcOpcuJwOQ0P5+9ts/i7JgC0eETbHbMzLfEGJVlOgPhqjlijbQdb/Nx4dmq46IRyseGm5Pp/ITt6pTQpop5npFqOR3ePmxjqJQFiaU=
   app: micro-donate
   on:
     repo: uva-cs3240-f20/project-1-31
