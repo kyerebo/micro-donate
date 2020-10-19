@@ -99,14 +99,33 @@
     <div class="navbar-nav ml-auto">
       <a class="nav-link active" href="#">How does it work?</a>
       <div class="nav-link active">|</div>
-      <a class="nav-link active" href="#">My Profile</a>
+      <a class="nav-link active" href="{% url 'profile' %}">My Profile</a>
       <div class="nav-link active">|</div>
       <span class="nav-link active">Welcome {{user.username}}!</span>
     </div>
   </div>
 </nav>
 <!-- Progress Bar -->
-<div class="progress-bg center-content">The progress bar will go here</div>
+<div class="progress-bg center-content">
+  {% if user.is_authenticated %}
+  <div class="container">
+    <div class="col">
+      <div class="row center-content">
+        Current XP: {{ xp }} <br>
+      </div>
+      <div class="row center-content">Level {{ level }} Contributor</div>
+      <div class="row center-content">
+        <div class="progress" style="height: 25px; width: 50%; margin:0 auto;">
+          <div class="progress-bar" role="progressbar" style="width:{{ percent }}%" aria-valuenow="{{ percent }}" aria-valuemin="0" aria-valuemax="100">{{ percent }}%</div>
+        </div> <br>
+      </div>
+      <div class="row center-content">
+        <p>Need {{ needed }} XP for next level!</p>
+      </div>
+  {% endif %}
+    </div>
+  </div>
+</div>
 <!-- Filters -->
 <div class="filter-bg center-content">
   <!-- Causes Filter -->
