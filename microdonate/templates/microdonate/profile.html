@@ -1,0 +1,28 @@
+{% load socialaccount %}
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</head>
+<div class="row">
+<body class="text-center">
+<div class="progress" style="height: 25px; width: 50%; margin:0 auto;">
+    <div class="progress-bar" role="progressbar" style="width:{{ percent }}%" aria-valuenow="{{ percent }}" aria-valuemin="0" aria-valuemax="100">{{ percent }}%</div>
+</div> <br>
+</body>
+</div>
+<div class = "row">
+    <div class = "col">
+        <h1>Previous Donation Opportunities</h1>
+        {% for Donate in Donations %}
+            {{Donate.donate_name}}<br>
+        {% endfor %}
+    </div>
+    <div class = "col">
+        <h1>Previous Volunteering Opportunities</h1>
+        {% for Volunteer in Volunteers %}
+            {{Volunteer.volunteer_name}}<br>
+        {% endfor %}
+    </div>
+</div>
+

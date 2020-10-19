@@ -17,3 +17,27 @@ def check(request):
         return HttpResponseRedirect(reverse('mainlogin'))
                 
         
+def profile(request):
+    levels = [0, 1000, 2000, 3500, 5000, 6750, 8500, 10000]
+    prof = None
+    if(request.user.is_authenticated):
+        for p in Profile.objects.all():
+            if(p.user_name == request.user.username):
+                prof = p
+        for idx, exp in enumerate(levels):
+            if prof.xp >= exp:
+                level = idx
+        if level==len(levels)-1:
+            percentage = 100
+            needed = 0
+        else:
+            percentage = int(100*(prof.xp-levels[level])/(levels[level+1]-levels[level]))
+            needed = levels[level + 1] - prof.xp
+        return render(request, 'microdonate/profile.html', {
+            'level': level,
+            'percent' : percentage,
+            'xp' : prof.xp,
+            'needed' : needed
+        })
+    else:
+        return HttpResponseRedirect(reverse('mainlogin'))

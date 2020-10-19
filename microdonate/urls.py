@@ -25,4 +25,5 @@ urlpatterns = [
     path('usercheck/', views.check, name="usercheck"),
     path('dash/', views.index, name="dashboard"),
     path('accounts/', include('allauth.urls'), name="accounts"),
+    path('profile/'), views.profile, name="profile"),
 ]
