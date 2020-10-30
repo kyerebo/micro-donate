@@ -2,7 +2,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from .models import Profile, Volunteer, Donate
+from django.template import loader
+from django.utils import timezone
+from .models import Profile, Volunteer, Donate, Comments
 def index(request):
     levels = [0,1000,2000,3500,5000,6750,8500,10000]
 
@@ -26,12 +28,22 @@ def index(request):
         needed = levels[level+1] - prof.xp
 
     user = request.user
+    temp_names = ['name 1','name 2','name 3']
+    temp_orgs = ['org 1', 'org 2', 'org 3']
+    temp_goals = [100, 200, 300]
+    temp_descriptions = ['description 1', 'description 2', 'description 3']
+    # the next 3 lines are temp
+    Volunteer.objects.all().delete()
+    for i in range(len(temp_names)):
+        Volunteer.objects.create(volunteer_name=temp_names[i], organization_name=temp_orgs[i], goal=temp_goals[i], description=temp_descriptions[i])
+    volunteer = Volunteer.objects.all()
     context = {
         'level' : level,
         'percent' : percentage,
         'xp' : prof.xp,
         'needed' : needed,
-        'user' : user
+        'user' : user,
+        'volunteer' : volunteer
     }
     return render(request, 'microdonate/dash.html', context)
 
@@ -78,3 +90,28 @@ def profile(request):
         })
     else:
         return HttpResponseRedirect(reverse('mainlogin'))
+
+def comments(request):
+    comments = Comments.objects.all()
+    temp = loader.get_template('microdonate/comments.html')
+
+    context = {
+        'comments': comments
+    }
+
+    return HttpResponse(temp.render(context,request))
+
+def submit(request):
+    left_comment = Comments(comments_title='',comments_text='',pub_date=timezone.now())
+    left_comment.comments_title = request.POST['comments_title']
+    left_comment.comments_text = request.POST['comments_text']
+    left_comment.save()
+    return HttpResponseRedirect('list')
+
+def comments_list(request):
+    comments = Comments.objects.all()
+    context = {
+        'comments': comments
+    }
+
+    return HttpResponse(loader.get_template('microdonate/comments_list.html').render(context,request))

@@ -25,5 +25,8 @@ urlpatterns = [
     path('usercheck/', views.check, name="usercheck"),
     path('dash/', views.index, name="dashboard"),
     path('accounts/', include('allauth.urls'), name="accounts"),
-    path('profile/', views.profile, name="profile")
+    path('profile/', views.profile, name="profile"),
+    path('comments/', views.comments, name='comments'),
+    path('comments/list', views.comments_list, name='comments_list'),
+    path('comments/submit', views.submit, name='submit')
 ]

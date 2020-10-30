@@ -244,57 +244,24 @@
     <span class="list-group-item list-group-item-custom"
       >86 Opportunities Available</span
     >
+    {% for opportunity in volunteer %}
     <a class="list-group-item list-group-item-action">
       <div class="container">
         <div class="row">
-          <div class="col-8">Color of Change</div>
-          <div class="col" style="color: gray">Civil Rights</div>
+          <div class="col-8">{{opportunity.volunteer_name}}</div>
+          <div class="col" style="color: gray">{{opportunity.organization_name}}</div>
           <div class="col">
+            <b style="color: #e13bf096">Goal: {{opportunity.goal}}</b>
+            <b>|</b>
             <b style="color: #7dcfb6">Volunteer</b>
             <b>|</b>
             <b style="color: #f79256">Donate</b>
           </div>
         </div>
+        {{opportunity.description}}
+        <b style="color: #272727">{{opportunity.desciption}}</b>
       </div>
     </a>
-    <a class="list-group-item list-group-item-action">
-      <div class="container">
-        <div class="row">
-          <div class="col-8">Color of Change</div>
-          <div class="col" style="color: gray">Civil Rights</div>
-          <div class="col">
-            <b style="color: #7dcfb6">Volunteer</b>
-            <b>|</b>
-            <b style="color: #f79256">Donate</b>
-          </div>
-        </div>
-      </div>
-    </a>
-    <a class="list-group-item list-group-item-action">
-      <div class="container">
-        <div class="row">
-          <div class="col-8">Color of Change</div>
-          <div class="col" style="color: gray">Civil Rights</div>
-          <div class="col">
-            <b style="color: #7dcfb6">Volunteer</b>
-            <b>|</b>
-            <b style="color: #f79256">Donate</b>
-          </div>
-        </div>
-      </div>
-    </a>
-    <a class="list-group-item list-group-item-action">
-      <div class="container">
-        <div class="row">
-          <div class="col-8">Color of Change</div>
-          <div class="col" style="color: gray">Civil Rights</div>
-          <div class="col">
-            <b style="color: #7dcfb6">Volunteer</b>
-            <b>|</b>
-            <b style="color: #f79256">Donate</b>
-          </div>
-        </div>
-      </div>
-    </a>
+    {% endfor %}
   </div>
 </div>

@@ -1,0 +1,10 @@
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'submit' %}" method="post">
+{% csrf_token %}
+<label>Leave a comment:</label><br>
+<input type="text" id="comments_title" name="comments_title" value=""><br>
+<input type="text" id="comments_text" name="comments_text" value=""><br>
+<input type="submit" value="Submit">
+</form>
