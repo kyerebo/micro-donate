@@ -1,0 +1,14 @@
+
+Comments List:
+{% if comments %}
+    <ul>
+    {% for comment in comments %}
+        <li>Comment Line 1: {{comment.comments_title }}
+            <br>Comment Line 2: {{comment.comments_text}}
+        </li>
+
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No comments available.</p>
+{% endif %}

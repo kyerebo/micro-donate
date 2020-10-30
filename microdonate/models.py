@@ -20,9 +20,20 @@ class Donate(models.Model):
     # ...
 
 class Volunteer(models.Model):
+    # name of specific volunteer
     volunteer_name = models.CharField(max_length=200)
+    # name of overall organization
+    organization_name = models.CharField(max_length=200, default='')
+    # goal
+    goal = models.IntegerField(default=100)
+    # description
+    description = models.CharField(max_length=1000, default='')
+
 
     volunteer_users = models.ManyToManyField(Profile)
     # ...
 
-
+class Comments(models.Model):
+    comments_title = models.CharField(max_length=200)
+    comments_text = models.CharField(max_length=200)
+    pub_date = models.DateTimeField('date published')
