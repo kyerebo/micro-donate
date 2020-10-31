@@ -133,6 +133,15 @@ def detDon(request, opp_id):
     return render(request, 'microdonate/detailDon.html', {
         'op' : op,
     })
+def submitDonation(request, opp_id):
+    op = Donate.objects.get(pk=opp_id)
+    #do payment stuff here
+    #need to find a way to push donation amount through this into donation confirmation page
+    return HttpResponseRedirect(reverse())
+def confirmDonation(request, opp_id):
+    op = Donate.objects.get(pk=opp_id)
+    name = op.donate_name
+    return HttpResponse("You just donated to: " + name)
 def signup(request, opp_id):
     op = Volunteer.objects.get(pk=opp_id)
     p = Profile.objects.get(pk=1)
@@ -143,3 +152,6 @@ def signup(request, opp_id):
     return HttpResponseRedirect(reverse('signUpConfirm'))
 def confirmation(request, opp_id):
     op = Volunteer.objects.get(pk=opp_id)
+    return render(request, 'microdonate/confirmsignup.html', {
+        'op' : op,
+    })

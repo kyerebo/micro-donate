@@ -30,6 +30,8 @@ urlpatterns = [
     path('comments/list/', views.comments_list, name='comments_list'),
     path('comments/submit/', views.submit, name='submit'),
     path('donate/<int:opp_id>/', views.detDon, name='detDon'),
+    path('donate/<int:opp_id>/pay/', views.submitDonation, name='submitDonation'),
+    path('donate/int:opp_id>/confirm/', views.
     path('volunteer/<int:opp_id>/', views.detVol, name='detVol'),
     path('volunteer/<int:opp_id>/confirm/', views.confirmation, name='signUpConfirm'),
     path('volunteer/<int:opp_id>/signup/', views.signup, name='signup'),
