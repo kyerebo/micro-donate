@@ -1,0 +1,29 @@
+<html>
+    <head>
+        {{op.volunteer_name}}<br>
+    </head>
+    {{op.description}}<br>
+    <div class = "row">
+        <div class = "col">
+            <h1>Location:</h1>
+            <iframe
+                width="400"
+                height="450"
+                frameborder="0" style="border:0"
+                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCeJcdX1DHrCnHcZOrQ9duEp2MFEw5I7eU&q=Rotunda,Charlottesville+VA" allowfullscreen>
+            </iframe>
+        </div>
+        <div class = "col">
+            Date: Not yet implemented
+            <h1> Participants Signed Up: </h1>
+            {% for prof in op.volunteer_users %}
+                {{prof.user_name}}
+            {% endfor %}
+        </div>
+    </div>
+    <div class = "row">
+        <form action="{% url 'signup' op.id %}" method="POST">
+            <button type="submit"> Sign Up! </button>
+        </form>
+    </div>
+</html>

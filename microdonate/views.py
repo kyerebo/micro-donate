@@ -115,3 +115,31 @@ def comments_list(request):
     }
 
     return HttpResponse(loader.get_template('microdonate/comments_list.html').render(context,request))
+
+def detVol(request, opp_id):
+    op = Volunteer.objects.get(pk=opp_id)
+    isSignedUp = False
+    for(u in op.volunteer_users):
+        if(u.username == request.user.username):
+            isSignedUp = True
+    return render(request, 'microdonate/detailVol.html', {
+        'op' : op,
+        'title' : op.volunteer_name,
+        'signedup' : isSignedUp,
+    })
+
+def detDon(request, opp_id):
+    op = Donate.objects.get(pk=opp_id)
+    return render(request, 'microdonate/detailDon.html', {
+        'op' : op,
+    })
+def signup(request, opp_id):
+    op = Volunteer.objects.get(pk=opp_id)
+    p = Profile.objects.get(pk=1)
+    for(prof in Profile.objects.all()):
+        if(request.user.username == prof.user_name):
+            p = prof
+    op.volunteer_users.add(p)
+    return HttpResponseRedirect(reverse('signUpConfirm'))
+def confirmation(request, opp_id):
+    op = Volunteer.objects.get(pk=opp_id)
