@@ -35,5 +35,4 @@ urlpatterns = [
     path('volunteer/<int:opp_id>/', views.detVol, name='detVol'),
     path('volunteer/<int:opp_id>/confirm/', views.confirmation, name='signUpConfirm'),
     path('volunteer/<int:opp_id>/signup/', views.signup, name='signup'),
-
 ]
