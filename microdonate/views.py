@@ -115,3 +115,45 @@ def comments_list(request):
     }
 
     return HttpResponse(loader.get_template('microdonate/comments_list.html').render(context,request))
+
+def detVol(request, opp_id):
+    op = Volunteer.objects.get(pk=opp_id)
+    isSignedUp = False
+    for u in op.volunteer_users.all():
+        if(u.user_name == request.user.username):
+            isSignedUp = True
+    return render(request, 'microdonate/detailVol.html', {
+        'op' : op,
+        'title' : op.volunteer_name,
+        'signedup' : isSignedUp,
+        'profs' : op.volunteer_users.all()
+    })
+
+def detDon(request, opp_id):
+    op = Donate.objects.get(pk=opp_id)
+    return render(request, 'microdonate/detailDon.html', {
+        'op' : op,
+    })
+def submitDonation(request, opp_id):
+    op = Donate.objects.get(pk=opp_id)
+    #do payment stuff here
+    #need to find a way to push donation amount through this into donation confirmation page
+    return HttpResponseRedirect(reverse('confirmDonation', args=(opp_id, )))
+def confirmDonation(request, opp_id):
+    op = Donate.objects.get(pk=opp_id)
+    name = op.donate_name
+    return HttpResponse("You just donated to: " + name)
+def signup(request, opp_id):
+    op = Volunteer.objects.get(pk=opp_id)
+    p = Profile.objects.get(pk=1)
+    for prof in Profile.objects.all():
+        if(request.user.username == prof.user_name):
+            p = prof
+    op.volunteer_users.add(p)
+    return HttpResponseRedirect(reverse('signUpConfirm', args=(opp_id, )))
+def confirmation(request, opp_id):
+    op = Volunteer.objects.get(pk=opp_id)
+    return render(request, 'microdonate/confirmsignup.html', {
+        'op' : op,
+        'user' : request.user,
+    })
