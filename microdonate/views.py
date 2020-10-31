@@ -119,8 +119,8 @@ def comments_list(request):
 def detVol(request, opp_id):
     op = Volunteer.objects.get(pk=opp_id)
     isSignedUp = False
-    for u in op.volunteer_users:
-        if(u.username == request.user.username):
+    for u in op.volunteer_users.all():
+        if(u.user_name == request.user.username):
             isSignedUp = True
     return render(request, 'microdonate/detailVol.html', {
         'op' : op,
