@@ -150,7 +150,7 @@ def signup(request, opp_id):
         if(request.user.username == prof.user_name):
             p = prof
     op.volunteer_users.add(p)
-    return HttpResponseRedirect(reverse('signUpConfirm'))
+    return HttpResponseRedirect(reverse('signUpConfirm', args=(opp_id, )))
 def confirmation(request, opp_id):
     op = Volunteer.objects.get(pk=opp_id)
     return render(request, 'microdonate/confirmsignup.html', {
