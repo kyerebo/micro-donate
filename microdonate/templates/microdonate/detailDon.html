@@ -6,6 +6,7 @@
     <div class="row">
         <div class="col">
             <form action="{% url 'submitDonation' op.id %}" method=POST>
+                {% csrf_token %}
                 <h3> Donate Now! </h3>
                 Card Number:
                 <input type="text" id="card-number" name="card-number"><br>
