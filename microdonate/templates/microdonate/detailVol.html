@@ -16,7 +16,7 @@
         <div class = "col">
             Date: Not yet implemented
             <h1> Participants Signed Up: </h1>
-            {% for prof in op.volunteer_users.all() %}
+            {% for prof in profs %}
                 {{prof.user_name}}
             {% endfor %}
         </div>
