@@ -138,7 +138,7 @@ def submitDonation(request, opp_id):
     op = Donate.objects.get(pk=opp_id)
     #do payment stuff here
     #need to find a way to push donation amount through this into donation confirmation page
-    return HttpResponseRedirect(reverse('confirmDonation', args=(opp_id,)))
+    return HttpResponseRedirect(reverse('confirmDonation', args=(opp_id, )))
 def confirmDonation(request, opp_id):
     op = Donate.objects.get(pk=opp_id)
     name = op.donate_name
