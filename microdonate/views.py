@@ -145,7 +145,7 @@ def confirmDonation(request, opp_id):
 def signup(request, opp_id):
     op = Volunteer.objects.get(pk=opp_id)
     p = Profile.objects.get(pk=1)
-    for(prof in Profile.objects.all()):
+    for prof in Profile.objects.all():
         if(request.user.username == prof.user_name):
             p = prof
     op.volunteer_users.add(p)
