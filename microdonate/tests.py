@@ -79,13 +79,13 @@ class VolunteerTesting(TestCase):
         v = Volunteer.objects.create(volunteer_name="test_name")
         self.assertEqual("test_name",v.volunteer_name)
     
-    def volunteer_users(self):
+    def test_volunteer_users(self):
         v = Volunteer.objects.create(volunteer_name="testing")
         p = Profile.objects.create(account=None, user_name="hello")
         v.volunteer_users.add(p)
         self.assertIn(p, v.volunteer_users.all())
     
-    def check_display(self):
+    def test_check_display(self):
         v = Volunteer.objects.create(volunteer_name="testing123")
-        response = self.client.get(reverse('dash'))
+        response = self.client.get(reverse('dashboard'))
         self.assertContains(response, "testing123")
