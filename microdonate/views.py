@@ -112,8 +112,10 @@ def comments(request):
 
 def submit(request):
     left_comment = Comments(comments_title='',comments_text='',pub_date=timezone.now())
-    left_comment.comments_title = request.POST.get('comments_title', False)
-    left_comment.comments_text = request.POST.get('comments_text', False)
+    title = request.POST.get('comments_title', '<No Title>')
+    text = request.POST.get('comments_text', '<No Body>')
+    left_comment.comments_title = title if title else '<No Title>'
+    left_comment.comments_text = text if text else '<No Title>'
     left_comment.save()
     return HttpResponseRedirect('list')
 
