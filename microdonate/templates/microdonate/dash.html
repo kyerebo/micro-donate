@@ -71,6 +71,11 @@
     color: white;
     font-weight: bold;
   }
+  .list-group-item-custom-1 {
+    background-color: #f79256;
+    color: white;
+    font-weight: bold;
+  }
 </style>
 <!-- Navbar -->
 <nav class="navbar navbar-dark navbar-expand-lg navbar-custom">
@@ -110,19 +115,27 @@
   {% if user.is_authenticated %}
   <div class="container">
     <div class="col">
-      <div class="row center-content">
-        Current XP: {{ xp }} <br>
-      </div>
+      <div class="row center-content">Current XP: {{ xp }} <br /></div>
       <div class="row center-content">Level {{ level }} Contributor</div>
       <div class="row center-content">
-        <div class="progress" style="height: 25px; width: 50%; margin:0 auto;">
-          <div class="progress-bar" role="progressbar" style="width:{{ percent }}%" aria-valuenow="{{ percent }}" aria-valuemin="0" aria-valuemax="100">{{ percent }}%</div>
-        </div> <br>
+        <div class="progress" style="height: 25px; width: 50%; margin: 0 auto">
+          <div
+            class="progress-bar"
+            role="progressbar"
+            style="width:{{ percent }}%"
+            aria-valuenow="{{ percent }}"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          >
+            {{ percent }}%
+          </div>
+        </div>
+        <br />
       </div>
       <div class="row center-content">
         <p>Need {{ needed }} XP for next level!</p>
       </div>
-  {% endif %}
+      {% endif %}
     </div>
   </div>
 </div>
@@ -231,37 +244,90 @@
   </div>
 </div>
 <!-- Opportunities -->
+
 <div class="center-content">
-  <div
-    class="list-group"
-    style="
-      width: 80%;
-      margin-top: 3em;
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
-        0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    "
-  >
-    <span class="list-group-item list-group-item-custom"
-      >86 Opportunities Available</span
-    >
-    {% for opportunity in volunteer %}
-    <a class="list-group-item list-group-item-action">
-      <div class="container">
-        <div class="row">
-          <div class="col-8">{{opportunity.volunteer_name}}</div>
-          <div class="col" style="color: gray">{{opportunity.organization_name}}</div>
-          <div class="col">
-            <b style="color: #e13bf096">Goal: {{opportunity.goal}}</b>
-            <b>|</b>
-            <b style="color: #7dcfb6">Volunteer</b>
-            <b>|</b>
-            <b style="color: #f79256">Donate</b>
+  <div class="row">
+    <!--Volunteering-->
+    <div class="col">
+      <div
+        class="list-group"
+        style="
+        width: 35em;
+          margin-top: 3em;
+          margin-bottom: 3em;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+            0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        "
+      >
+        <span class="list-group-item list-group-item-custom"
+          >{{volunteer.count}} Volunteering Opportunities Available</span
+        >
+        {% for opportunity in volunteer %}
+        <div class="list-group-item">
+          <div class="container">
+            <div class="row">
+              <div class="col-4" style="font-weight: bold">
+                {{opportunity.volunteer_name}}
+              </div>
+              <div class="col-5" style="color: gray">
+                {{opportunity.organization_name}}
+              </div>
+              <div class="col" style="font-weight: bold">
+                <a
+                  style="color: #7dcfb6"
+                  href="{% url 'detVol' opportunity.id %}"
+                  >Volunteer</a
+                ></br>
+                <a style="color: #b38cb4">Goal: {{opportunity.goal}}</a>
+              </div>
+            </div>
+            {{opportunity.description}}
+            <b style="color: #272727">{{opportunity.desciption}}</b>
           </div>
         </div>
-        {{opportunity.description}}
-        <b style="color: #272727">{{opportunity.desciption}}</b>
+        {% endfor %}
       </div>
-    </a>
-    {% endfor %}
+    </div>
+    <div class="col">
+      <!--Donating-->
+      <div
+        class="list-group"
+        style="
+        width: 35em;
+          margin-top: 3em;
+          margin-bottom: 3em;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+            0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        "
+      >
+        <span class="list-group-item list-group-item-custom-1"
+          >{{donate.count}} Donation Opportunities Available</span
+        >
+        {% for opportunity in donate %}
+        <div class="list-group-item">
+          <div class="container">
+            <div class="row">
+              <div class="col-4" style="font-weight: bold">
+                {{opportunity.donate_name}}
+              </div>
+              <div class="col-5" style="color: gray">
+                {{opportunity.organization_name}}
+              </div>
+              <div class="col" style="font-weight: bold">
+                <a
+                  style="color: #f79256"
+                  href="{% url 'detDon' opportunity.id %}"
+                  >Donate</a
+                ></br>
+                <a style="color: #b38cb4">Goal: {{opportunity.goal}}</a>
+              </div>
+            </div>
+            {{opportunity.description}}
+            <b style="color: #272727">{{opportunity.desciption}}</b>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
   </div>
 </div>

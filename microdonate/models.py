@@ -16,6 +16,12 @@ class Profile(models.Model):
 class Donate(models.Model):
     donate_name = models.CharField(max_length=200)
 
+    organization_name = models.CharField(max_length=200, default='')
+
+    goal = models.IntegerField(default=100)
+
+    description = models.CharField(max_length=1000, default='')
+
     donate_users = models.ManyToManyField(Profile)
     # ...
 
@@ -28,7 +34,6 @@ class Volunteer(models.Model):
     goal = models.IntegerField(default=100)
     # description
     description = models.CharField(max_length=1000, default='')
-
 
     volunteer_users = models.ManyToManyField(Profile)
     # ...
