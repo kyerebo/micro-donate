@@ -28,19 +28,19 @@ def index(request):
         needed = levels[level+1] - prof.xp
 
     user = request.user
-    temp_names = ['name 1','name 2','name 3']
-    temp_orgs = ['org 1', 'org 2', 'org 3']
-    temp_goals = [100, 200, 300]
-    temp_descriptions = ['description 1', 'description 2', 'description 3']
-    # the next 3 lines are temp
-    Volunteer.objects.all().delete()
-    for i in range(len(temp_names)):
-        Volunteer.objects.create(volunteer_name=temp_names[i], organization_name=temp_orgs[i], goal=temp_goals[i], description=temp_descriptions[i])
+    # temp_names = ['name 1','name 2','name 3']
+    # temp_orgs = ['org 1', 'org 2', 'org 3']
+    # temp_goals = [100, 200, 300]
+    # temp_descriptions = ['description 1', 'description 2', 'description 3']
+    # # the next 3 lines are temp
+    # Volunteer.objects.all().delete()
+    # for i in range(len(temp_names)):
+    #     Volunteer.objects.create(volunteer_name=temp_names[i], organization_name=temp_orgs[i], goal=temp_goals[i], description=temp_descriptions[i])
     volunteer = Volunteer.objects.all()
-    # the next 3 lines are temp
-    Donate.objects.all().delete()
-    for i in range(len(temp_names)):
-        Donate.objects.create(donate_name=temp_names[i], organization_name=temp_orgs[i], goal=temp_goals[i], description=temp_descriptions[i])
+    # # the next 3 lines are temp
+    # Donate.objects.all().delete()
+    # for i in range(len(temp_names)):
+    #     Donate.objects.create(donate_name=temp_names[i], organization_name=temp_orgs[i], goal=temp_goals[i], description=temp_descriptions[i])
     donate = Donate.objects.all()
     context = {
         'level' : level,
