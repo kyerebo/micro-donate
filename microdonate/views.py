@@ -37,13 +37,19 @@ def index(request):
     for i in range(len(temp_names)):
         Volunteer.objects.create(volunteer_name=temp_names[i], organization_name=temp_orgs[i], goal=temp_goals[i], description=temp_descriptions[i])
     volunteer = Volunteer.objects.all()
+    # the next 3 lines are temp
+    Donate.objects.all().delete()
+    for i in range(len(temp_names)):
+        Donate.objects.create(donate_name=temp_names[i], organization_name=temp_orgs[i], goal=temp_goals[i], description=temp_descriptions[i])
+    donate = Donate.objects.all()
     context = {
         'level' : level,
         'percent' : percentage,
         'xp' : prof.xp,
         'needed' : needed,
         'user' : user,
-        'volunteer' : volunteer
+        'volunteer' : volunteer,
+        'donate' : donate
     }
     return render(request, 'microdonate/dash.html', context)
 
