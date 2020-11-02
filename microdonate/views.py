@@ -112,8 +112,8 @@ def comments(request):
 
 def submit(request):
     left_comment = Comments(comments_title='',comments_text='',pub_date=timezone.now())
-    left_comment.comments_title = request.POST['comments_title']
-    left_comment.comments_text = request.POST['comments_text']
+    left_comment.comments_title = request.POST.get('comments_title', False)
+    left_comment.comments_text = request.POST.get('comments_text', False)
     left_comment.save()
     return HttpResponseRedirect('list')
 
