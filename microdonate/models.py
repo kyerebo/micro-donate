@@ -11,7 +11,8 @@ class Profile(models.Model):
     # check User.name
     user_name = models.CharField(max_length=25, null=True)
     xp = models.IntegerField(default=0)
-
+    def __str__(self):
+        return self.user_name
 
 class Donate(models.Model):
     donate_name = models.CharField(max_length=200)
