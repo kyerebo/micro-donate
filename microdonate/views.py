@@ -133,11 +133,13 @@ def detVol(request, opp_id):
     for u in op.volunteer_users.all():
         if(u.user_name == request.user.username):
             isSignedUp = True
+    locateString = "https://www.google.com/maps/embed/v1/place?key=AIzaSyCeJcdX1DHrCnHcZOrQ9duEp2MFEw5I7eU&q=" + op.location
     return render(request, 'microdonate/detailVol.html', {
         'op' : op,
         'title' : op.volunteer_name,
         'signedup' : isSignedUp,
-        'profs' : op.volunteer_users.all()
+        'profs' : op.volunteer_users.all(),
+        'loc' : locateString,
     })
 
 def detDon(request, opp_id):
