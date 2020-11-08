@@ -138,8 +138,8 @@ def detVol(request, opp_id):
         'op' : op,
         'title' : op.volunteer_name,
         'signedup' : isSignedUp,
-        'profs' : op.volunteer_users.all()
-        'loc' : locateString
+        'profs' : op.volunteer_users.all(),
+        'loc' : locateString,
     })
 
 def detDon(request, opp_id):
