@@ -121,11 +121,6 @@
         <div class="list-group-item-custom list-group-item">
           Participants Signed Up:
         </div>
-        <!--Hard Coding participants-->
-        <div class="list-group-item">Alex Kyereboah</div>
-        <div class="list-group-item">Justin Gou</div>
-        <div class="list-group-item">John Kothmann</div>
-        <div class="list-group-item">Erick Tian</div>
         {% for prof in profs %}
         <div class="list-group-item">{{prof.user_name}}</div>
         {% endfor %}
@@ -144,7 +139,7 @@
           height="400"
           frameborder="0"
           style="border: 0"
-          src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCeJcdX1DHrCnHcZOrQ9duEp2MFEw5I7eU&q=Rotunda,Charlottesville+VA"
+          src="{{loc}}"
           allowfullscreen
         >
         </iframe>
