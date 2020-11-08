@@ -24,6 +24,8 @@ class Donate(models.Model):
     description = models.CharField(max_length=1000, default='')
 
     donate_users = models.ManyToManyField(Profile)
+
+    donate_amount = models.IntegerField(default=0)
     # ...
 
 class Volunteer(models.Model):
@@ -35,10 +37,12 @@ class Volunteer(models.Model):
     goal = models.IntegerField(default=100)
     # description
     description = models.CharField(max_length=1000, default='')
-
+    # participants
     volunteer_users = models.ManyToManyField(Profile)
-    # ...
-
+    # location in simple terms, "google search" location name, not formal address
+    location = models.CharField(max_length=200, default = 'no such road')
+    # date of event
+    date = models.DateTimeField('Date of Event', default = timezone.now())
 class Comments(models.Model):
     comments_title = models.CharField(max_length=200)
     comments_text = models.CharField(max_length=200)
