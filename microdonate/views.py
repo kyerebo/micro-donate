@@ -13,9 +13,7 @@ def index(request):
         if(p.user_name == request.user.username):
             prof = p
 
-    if prof!=None:
-        prof.xp = 7492
-    else:
+    if prof==None:
         prof = Profile.objects.create(user_name='Test Account',xp=3742)
 
     level = 0
