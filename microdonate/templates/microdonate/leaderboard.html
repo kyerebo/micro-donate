@@ -87,6 +87,11 @@
     color: white;
     font-weight: bold;
   }
+  .list-group-item-prof {
+      background-color: rgba(255, 237, 136, 0.863);
+      color: black;
+      font-weight: bold;
+  }
   .list-group::-webkit-scrollbar {
     display: none;
   }
@@ -129,77 +134,26 @@
     </div>
   </div>
 </nav>
-<div class="bg center-content">
-  <!--Profile Card-->
-  <div class="profile-container">
-    <div class="row" style="background-color: #f79256; border-radius: 50px">
-      <img
+<h1> Leaderboard </h1>
+<ol class="list-group">
+    
+    {% for Profile in board %}
+    {% if Profile.user_name == user.username %}
+        <li class="list-group-item list-group-item-prof">
+            <img
         src="{{ user.socialaccount_set.all.0.get_avatar_url }}"
         style="border-radius: 50px"
-      />
-      <div class="profile-title">{{user.username}}'s Profile</div>
-    </div>
-    <div class="row">
-      <div class="container">
-        <div class="col">
-          <!-- Progress Bar -->
-          <div class="row" style="margin-top: 2em">
-            <div class="col">
-              <div class="level center-content">Level {{ level }}</div>
-            </div>
-            <div class="col-8">
-              <div
-                class="progress"
-                style="height: 4em; width: 100%; border-radius: 20px"
-              >
-                <div
-                  class="progress-bar progress-bar-striped progress-bar-animated"
-                  role="progressbar"
-                  style="width: {{ percent }}%; background-color: #7dcfb6"
-                  aria-valuenow="{{ percent }}"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                >
-                  {{ percent }}%
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="level center-content">{{ xp }} XP</div>
-            </div>
-          </div>
-          <div
-            class="row center-content"
-            style="color: #f79256; margin-top: 10px"
-          >
-            Need {{ needed }} XP for next level!
-          </div>
-        </div>
-      </div>
-      <div class="container">
-        <div class="row" style="margin-top: 1em">
-          <div class="col">
-            <ul class="list-group">
-              <li class="list-group-item list-group-item-custom">
-                Donation History
-              </li>
-              {% for Donate in Donations %}
-              <li class="list-group-item">{{Donate.donate_name}}</li>
-              {% endfor %}
-            </ul>
-          </div>
-          <div class="col">
-            <ul class="list-group">
-              <li class="list-group-item list-group-item-custom">
-                Volunteering History
-              </li>
-              {% for Volunteer in Volunteers %}
-              <li class="list-group-item">{{Volunteer.volunteer_name}} on {{Volunteer.date}}</li>
-              {% endfor %}
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+            />
+            {{Profile.user_name}}       {{Profile.xp}}
+        </li>
+    {% else %}
+        <li class="list-group-item">
+            <img
+        src="{{ user.socialaccount_set.all.0.get_avatar_url }}"
+        style="border-radius: 50px"
+            />
+            {{Profile.user_name}}       {{Profile.xp}}
+        </li>
+    {% endif %}
+    {% endfor %}
+</ol>
