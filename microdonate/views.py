@@ -147,6 +147,10 @@ def detDon(request, opp_id):
     return render(request, 'microdonate/detailDon.html', {
         'op' : op,
     })
+def about(request):
+    return render(request, 'microdonate/about.html', {
+        'user' : request.user,
+    })
 def submitDonation(request, opp_id):
     op = Donate.objects.get(pk=opp_id)
     #do payment stuff here
