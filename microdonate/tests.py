@@ -5,7 +5,7 @@ from django.utils import timezone
 from django.urls import reverse
 
 from django.contrib.auth.models import User
-from .models import Profile, Volunteer, Donate
+from .models import Profile, Volunteer, Donate, Comments
 
 # add imports and test cases
 
@@ -89,3 +89,56 @@ class VolunteerTesting(TestCase):
         v = Volunteer.objects.create(volunteer_name="testing123")
         response = self.client.get(reverse('dashboard'))
         self.assertContains(response, "testing123")
+
+class DonateTesting(TestCase):
+    def test_new_donate(self):
+        d = Donate.objects.create(donate_name="test_name")
+        self.assertEqual("test_name",d.donate_name)
+    
+    def test_donate_users(self):
+        d = Donate.objects.create(donate_name="testing")
+        p = Profile.objects.create(account=None, user_name="user")
+        d.donate_users.add(p)
+        self.assertIn(p, d.donate_users.all())
+    
+    def test_check_display(self):
+        d = Donate.objects.create(donate_name="testing123")
+        response = self.client.get(reverse('dashboard'))
+        self.assertContains(response, "testing123")
+
+class CommentsTesting(TestCase):
+    def test_blank_body(self):
+        c = Comments.objects.create()
+        self.assertEqual(c.comments_text,'<No Body>')
+    
+    def test_blank_title(self):
+        c = Comments.objects.create()
+        self.assertEqual(c.comments_title,'<No Title>')
+    
+    def test_body(self):
+        c = Comments.objects.create(comments_text='test text')
+        self.assertEqual(c.comments_text,'test text')
+    
+    def test_title(self):
+        c = Comments.objects.create(comments_title='test title')
+        self.assertEqual(c.comments_title,'test title')
+
+# class leaderboardTest(TestCase):
+    #def test_leaderboard(self):
+        #a = Profile.objects.create(account=None, user_name="qwerty", xp=200)
+        #b = Profile.objects.create(account=None, user_name="b", xp=350)
+        #response = self.client.get(reverse('leaderboard'))
+        #self.assertContains(response, "qwerty")
+        
+
+# class XPUpdateTest(TestCase):
+#     def test_donate_xp(self):
+#         p = Profile.objects.create(account=None, user_name="hello",xp=123)
+#         response = self.client.get('/update_xp',{"donation":"10.0","user":"hello"})
+#         self.assertEqual(p.xp, 123+int(10.0*50))
+        
+    # def test_volunteer_xp(self):
+    #     p = Profile.objects.create(account=None, user_name="hello",xp=123)
+    #     v = Volunteer.objects.create(volunteer_name="testing123")
+    #     v.volunteer_users.add(p)
+    #     self.assert
