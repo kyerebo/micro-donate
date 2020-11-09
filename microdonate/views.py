@@ -160,7 +160,9 @@ def signup(request, opp_id):
     for prof in Profile.objects.all():
         if(request.user.username == prof.user_name):
             p = prof
+    p.xp += 200
     op.volunteer_users.add(p)
+    p.save()
     return HttpResponseRedirect(reverse('signUpConfirm', args=(opp_id, )))
 def confirmation(request, opp_id):
     op = Volunteer.objects.get(pk=opp_id)
