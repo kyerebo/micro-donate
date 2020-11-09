@@ -146,6 +146,7 @@ def detDon(request, opp_id):
     op = Donate.objects.get(pk=opp_id)
     return render(request, 'microdonate/detailDon.html', {
         'op' : op,
+        'profs' : op.donate_users.all()
     })
 def about(request):
     return render(request, 'microdonate/about.html', {
