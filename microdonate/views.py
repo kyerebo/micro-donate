@@ -13,9 +13,7 @@ def index(request):
         if(p.user_name == request.user.username):
             prof = p
 
-    if prof!=None:
-        prof.xp = 7492
-    else:
+    if prof==None:
         prof = Profile.objects.create(user_name='Test Account',xp=3742)
 
     level = 0
@@ -167,7 +165,9 @@ def signup(request, opp_id):
     for prof in Profile.objects.all():
         if(request.user.username == prof.user_name):
             p = prof
+    p.xp += 200
     op.volunteer_users.add(p)
+    p.save()
     return HttpResponseRedirect(reverse('signUpConfirm', args=(opp_id, )))
 def confirmation(request, opp_id):
     op = Volunteer.objects.get(pk=opp_id)
