@@ -25,6 +25,7 @@
 <script
 src="https://www.paypal.com/sdk/js?client-id=AYKM0L2kQVcDhtVWwWiYLZchmy8vuLhCGGzQosCqFNgBjsGg9yj9ePVpNYXedQ58kEneOlMd-NeksvZd"> // Required. Replace SB_CLIENT_ID with your sandbox client ID.
 </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     var amount = '5.00';
     function setAmount(value){
@@ -45,6 +46,18 @@ src="https://www.paypal.com/sdk/js?client-id=AYKM0L2kQVcDhtVWwWiYLZchmy8vuLhCGGz
       // This function captures the funds from the transaction.
       // Update XP
       return actions.order.capture().then(function(details) {
+        $.ajax({
+            type: 'GET',
+            url: "{% url 'update_xp' %}",
+            data: {donation: amount, user: "{{user.username}}"},
+            success: function (response) {
+              location.href = '/dash';
+            },
+            error: function (response) {
+                // alert the error if any error occured
+                alert(response["responseJSON"]["error"]);
+            }
+        });
         // This function shows a transaction success message to your buyer.
         alert('Transaction completed by ' + details.payer.name.given_name);
       });

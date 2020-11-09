@@ -175,3 +175,13 @@ def confirmation(request, opp_id):
         'op' : op,
         'user' : request.user,
     })
+
+def update_xp(request):
+    username = request.GET.get('user')
+    donation_amount = float(request.GET.get('donation'))
+    for prof in Profile.objects.all():
+        if(username == prof.user_name):
+            p = prof
+    p.xp += int(donation_amount*50)
+    p.save()
+    return HttpResponseRedirect(reverse('dashboard'))
