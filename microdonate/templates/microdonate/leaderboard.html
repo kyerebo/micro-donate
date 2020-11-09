@@ -1,3 +1,4 @@
+{% load socialaccount %}
 <head>
   <meta charset="utf-8" />
   <meta
@@ -22,7 +23,13 @@
   integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
   crossorigin="anonymous"
 ></script>
+<!-- CSS -->
 <style>
+  .center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   .navbar-custom {
     background-color: #7dcfb6;
     color: white;
@@ -33,84 +40,68 @@
   }
   .bg {
     background-image: linear-gradient(
-      to bottom,
-      rgb(125, 207, 182),
-      rgb(251, 209, 162)
-    );
+        to bottom,
+        rgba(125, 207, 182, 1),
+        rgba(0, 0, 0, 0.2)
+      ),
+      url("https://images.unsplash.com/photo-1593113598332-cd288d649433?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80");
     height: 100%;
+    background-size: cover;
+    background-position: center;
   }
-  .card-container {
-    padding: 3em;
-    width: 60%;
+  .profile-container {
+    padding-left: 3em;
+    padding-right: 3em;
+    padding-top: 2em;
+    height: 80%;
+    width: 80%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     background-color: white;
     border-radius: 10px;
-    -webkit-animation: fadein 1.5s; /* Safari, Chrome and Opera > 12.1 */
-    -moz-animation: fadein 1.5s; /* Firefox < 16 */
-    -ms-animation: fadein 1.5s; /* Internet Explorer */
-    -o-animation: fadein 1.5s; /* Opera < 12.1 */
-    animation: fadein 1.5s;
   }
-  @keyframes fadein {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  /* Firefox < 16 */
-  @-moz-keyframes fadein {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  /* Safari, Chrome and Opera > 12.1 */
-  @-webkit-keyframes fadein {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  /* Internet Explorer */
-  @-ms-keyframes fadein {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  /* Opera < 12.1 */
-  @-o-keyframes fadein {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  .center-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .btn-custom-primary {
-    background-color: #7dcfb6;
-    border: none;
+  .profile-title {
+    margin-left: 1em;
+    margin-top: 1em;
+    font-weight: bolder;
+    font-size: xx-large;
     color: white;
-    margin-top: 2em;
+  }
+  .level {
+    border-radius: 30px;
+    background-color: #7dcfb6;
+    color: white;
+    font-size: xx-large;
+    font-weight: bold;
+    margin-left: 2%;
+    margin-right: 2%;
+    padding-left: 1%;
+    padding-right: 1%;
+  }
+  .list-group {
+    max-height: 600px;
+    margin-bottom: 10px;
+    overflow: scroll;
+  }
+  .list-group-item-custom {
+    background-color: #7dcfb6;
+    color: white;
+    font-weight: bold;
+  }
+  .list-group-item-prof {
+      background-color: rgba(255, 237, 136, 0.863);
+      color: black;
+      font-weight: bold;
+  }
+  .list-group::-webkit-scrollbar {
+    display: none;
+  }
+
+  .list-group {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 </style>
+<!-- Navbar -->
 <nav class="navbar navbar-dark navbar-expand-lg navbar-custom">
   <a class="navbar-brand mb-0 h1" href="{% url 'dashboard' %}">
     <img
@@ -145,14 +136,26 @@
     </div>
   </div>
 </nav>
-<div class="bg center-content">
-  <div class="card-container">
-    <h1>Thanks for signing up {{user.username}}!</h1>
-    <h5>You are now signed up for {{op.volunteer_name}}!</h5>
-    <div class="d-flex justify-content-center">
-      <a class="btn btn-custom-primary btn-lg" href="{% url 'dashboard' %}"
-        >Return to Dashboard</a
-      >
-    </div>
-  </div>
-</div>
+<h1> Leaderboard </h1>
+<ol class="list-group">
+    
+    {% for Profile in board %}
+    {% if Profile.user_name == user.username %}
+        <li class="list-group-item list-group-item-prof">
+            <img
+        src="{{ user.socialaccount_set.all.0.get_avatar_url }}"
+        style="border-radius: 50px"
+            />
+            {{Profile.user_name}}       {{Profile.xp}}
+        </li>
+    {% else %}
+        <li class="list-group-item">
+            <img
+        src="{{ Profile.account.socialaccount_set.all.0.get_avatar_url }}"
+        style="border-radius: 50px"
+            />
+            {{Profile.user_name}}       {{Profile.xp}}
+        </li>
+    {% endif %}
+    {% endfor %}
+</ol>
