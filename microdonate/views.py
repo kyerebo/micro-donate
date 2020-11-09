@@ -150,6 +150,15 @@ def about(request):
     return render(request, 'microdonate/about.html', {
         'user' : request.user,
     })
+def leaderboard(request):
+    prof = Profile.objects.get(user_name= request.user.username)
+    board = Profile.objects.all().order_by('-xp')
+    user = request.user
+    return render(request, 'microdonate/leaderboard.html', {
+        'board' : board,
+        'prof' : prof,
+        'user' : user,
+    })
 def submitDonation(request, opp_id):
     op = Donate.objects.get(pk=opp_id)
     #do payment stuff here
@@ -175,3 +184,13 @@ def confirmation(request, opp_id):
         'op' : op,
         'user' : request.user,
     })
+
+def update_xp(request):
+    username = request.GET.get('user')
+    donation_amount = float(request.GET.get('donation'))
+    for prof in Profile.objects.all():
+        if(username == prof.user_name):
+            p = prof
+    p.xp += int(donation_amount*50)
+    p.save()
+    return HttpResponseRedirect(reverse('dashboard'))

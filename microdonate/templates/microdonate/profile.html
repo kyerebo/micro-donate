@@ -123,6 +123,8 @@
     <div class="navbar-nav ml-auto">
       <a class="nav-link active" href="{% url 'about' %}">How does it work?</a>
       <div class="nav-link active">|</div>
+      <a class="nav-link active" href="{% url 'leaderboard' %}">Leaderboard</a>
+      <div class="nav-link active">|</div>
       <a class="nav-link active" href="{% url 'profile' %}">My Profile</a>
       <div class="nav-link active">|</div>
       <span class="nav-link active">Welcome {{user.username}}!</span>
@@ -194,7 +196,7 @@
                 Volunteering History
               </li>
               {% for Volunteer in Volunteers %}
-              <li class="list-group-item">{{Volunteer.volunteer_name}}</li>
+              <li class="list-group-item">{{Volunteer.volunteer_name}} on {{Volunteer.date}}</li>
               {% endfor %}
             </ul>
           </div>
