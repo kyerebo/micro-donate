@@ -267,7 +267,7 @@
           <div class="container">
             <div class="row">
               <div class="col-4" style="font-weight: bold">
-                {{opportunity.volunteer_name}}
+                {{opportunity.volunteer_name}}<br>{{opportunity.date}}
               </div>
               <div class="col-5" style="color: gray">
                 {{opportunity.organization_name}}
@@ -319,7 +319,7 @@
                   href="{% url 'detDon' opportunity.id %}"
                   >Donate</a
                 ></br>
-                <a style="color: #b38cb4">Goal: {{opportunity.goal}}</a>
+                <a style="color: #b38cb4">Goal: ${{opportunity.goal}}</a>
               </div>
             </div>
             {{opportunity.description}}
