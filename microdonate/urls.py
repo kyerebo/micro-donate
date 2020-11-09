@@ -28,6 +28,7 @@ urlpatterns = [
     path('profile/', views.profile, name="profile"),
     path('comments/', views.comments, name='comments'),
     path('about/', views.about, name='about'),
+    path('leaderboard/', views.leaderboard, name='leaderboard'),
     path('comments/submit/list', views.comments_list, name='comments_list'),
     path('comments/submit/', views.submit, name='submit'),
     path('donate/<int:opp_id>/', views.detDon, name='detDon'),
