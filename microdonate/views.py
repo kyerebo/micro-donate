@@ -94,7 +94,7 @@ def profile(request):
             'xp' : prof.xp,
             'needed' : needed,
             'Volunteers' : volunteers,
-            'Donates' : donates
+            'Donations' : donates
         })
     else:
         return HttpResponseRedirect(reverse('mainlogin'))
