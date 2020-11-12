@@ -85,8 +85,9 @@ def profile(request):
         for v in Volunteer.objects.filter(volunteer_users=prof):
             volunteers.append(v)
         donates = list()
-        for d in Donate.objects.filter(donate_users=prof):
-            donates.append(d)
+        for d in Donate.objects.all():
+            if(prof in d.donate_users.all()):
+                donates.append(d)
         return render(request, 'microdonate/profile.html', {
             'level': level,
             'percent' : percentage,
