@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 
 from django.db import models
 from django.utils import timezone
@@ -42,8 +42,8 @@ class Volunteer(models.Model):
     # location in simple terms, "google search" location name, not formal address
     location = models.CharField(max_length=200, default = 'no such road')
     # date of event
-    date = models.DateTimeField('Date of Event', default = timezone.now())
+    date = models.DateTimeField('Date of Event', default = timezone.now)
 class Comments(models.Model):
-    comments_title = models.CharField(max_length=200)
-    comments_text = models.CharField(max_length=200)
-    pub_date = models.DateTimeField('date published')
+    comments_title = models.CharField(max_length=200, default='<No Title>')
+    comments_text = models.CharField(max_length=200, default='<No Body>')
+    pub_date = models.DateTimeField('date published', auto_now_add=True, blank=True)
