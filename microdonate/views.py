@@ -188,9 +188,18 @@ def confirmation(request, opp_id):
 def update_xp(request):
     username = request.GET.get('user')
     donation_amount = float(request.GET.get('donation'))
+    donation = request.GET.get('opp')
     for prof in Profile.objects.all():
         if(username == prof.user_name):
             p = prof
+            break
+    dona = None
+    for don in Donate.objects.all():
+        if( don.donate_name == donation):
+            dona = don
+            break
+    if dona!=None:
+        dona.donate_users.add(p)
     p.xp += int(donation_amount*50)
     p.save()
     return HttpResponseRedirect(reverse('dashboard'))
