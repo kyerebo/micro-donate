@@ -1,11 +1,12 @@
 import datetime
 
-from django.test import TestCase
+from django.test import TestCase, RequestFactory
 from django.utils import timezone
 from django.urls import reverse
 
 from django.contrib.auth.models import User
 from .models import Profile, Volunteer, Donate, Comments
+from .views import signup
 
 # add imports and test cases
 
@@ -131,14 +132,91 @@ class CommentsTesting(TestCase):
         #self.assertContains(response, "qwerty")
         
 
-# class XPUpdateTest(TestCase):
-#     def test_donate_xp(self):
-#         p = Profile.objects.create(account=None, user_name="hello",xp=123)
-#         response = self.client.get('/update_xp',{"donation":"10.0","user":"hello"})
-#         self.assertEqual(p.xp, 123+int(10.0*50))
+class XPUpdateTest(TestCase):
+    def test_donate_xp(self):
+        p = Profile.objects.create(account=None, user_name="hello",xp=123)
+        response = self.client.get('/update_xp/',{"donation":"10.0","user":"hello"})
+        p.refresh_from_db()
+        self.assertEqual(p.xp, 123+int(10.0*50))
+
+    def test_donate_xp_large(self):
+        p = Profile.objects.create(account=None, user_name="hello2",xp=1234)
+        response = self.client.get('/update_xp/',{"donation":"100000.0","user":"hello2"})
+        p.refresh_from_db()
+        self.assertEqual(p.xp, 1234+int(100000.0*50))
+
+    def test_donate_xp_fraction(self):
+        p = Profile.objects.create(account=None, user_name="hello",xp=34)
+        response = self.client.get('/update_xp/',{"donation":"1000.50","user":"hello"})
+        p.refresh_from_db()
+        self.assertEqual(p.xp, 34+int(1000.50*50))
+
+    def test_donate_xp_0(self):
+        p = Profile.objects.create(account=None, user_name="hello",xp=3244)
+        response = self.client.get('/update_xp/',{"donation":"0.0","user":"hello"})
+        p.refresh_from_db()
+        self.assertEqual(p.xp, 3244+int(0*50))
         
-    # def test_volunteer_xp(self):
-    #     p = Profile.objects.create(account=None, user_name="hello",xp=123)
-    #     v = Volunteer.objects.create(volunteer_name="testing123")
-    #     v.volunteer_users.add(p)
-    #     self.assert
+    def test_volunteer_xp(self):
+        p = Profile.objects.create(account=None, user_name="hello",xp=123)
+        v = Volunteer.objects.create(volunteer_name="testing123")
+        fac = RequestFactory()
+        request = fac.get('/volunteer/signup/')
+        class User:
+            username = "hello"
+        request.user = User()
+        response = signup(request,1)
+        p.refresh_from_db()
+        v.refresh_from_db()
+        self.assertEqual(p.xp,123+200)
+        self.assertIn(p, v.volunteer_users.all())
+    
+    def test_volunteer_xp_twice(self):
+        p = Profile.objects.create(account=None, user_name="hello",xp=123)
+        v = Volunteer.objects.create(volunteer_name="testing123")
+        v2 = Volunteer.objects.create(volunteer_name="testing1234")
+        fac = RequestFactory()
+        request = fac.get('/volunteer/signup/')
+        class User:
+            username = "hello"
+        request.user = User()
+        response = signup(request,1)
+
+        fac = RequestFactory()
+        request = fac.get('/volunteer/signup/')
+        request.user = User()
+        response = signup(request,2)
+
+        p.refresh_from_db()
+        v.refresh_from_db()
+        v2.refresh_from_db()
+        self.assertEqual(p.xp,123+200+200)
+        self.assertIn(p, v.volunteer_users.all())
+        self.assertIn(p, v2.volunteer_users.all())
+
+    def test_volunteer_xp_three(self):
+        p = Profile.objects.create(account=None, user_name="hello",xp=123)
+        p2 = Profile.objects.create(account=None, user_name="hello2",xp=12345)
+        v = Volunteer.objects.create(volunteer_name="testing123")
+
+        fac = RequestFactory()
+        request = fac.get('/volunteer/signup/')
+        class User:
+            username = "hello"
+        request.user = User()
+        response = signup(request,1)
+
+        temp = User()
+        temp.username = "hello2"
+
+        fac = RequestFactory()
+        request = fac.get('/volunteer/signup/')
+        request.user = temp
+        response = signup(request,1)
+
+        p.refresh_from_db()
+        p2.refresh_from_db()
+        self.assertEqual(p.xp,123+200)
+        self.assertEqual(p2.xp,12345+200)
+        self.assertIn(p, v.volunteer_users.all())
+        self.assertIn(p2, v.volunteer_users.all())
