@@ -113,6 +113,11 @@ src="https://www.paypal.com/sdk/js?client-id=AYKM0L2kQVcDhtVWwWiYLZchmy8vuLhCGGz
   .list-group::-webkit-scrollbar {
     display: none;
   }
+  .btn-custom-secondary {
+    background-color: #f79256;
+    border: none;
+    color: white;
+  }
 </style>
 <nav class="navbar navbar-dark navbar-expand-lg navbar-custom">
   <a class="navbar-brand mb-0 h1" href="{% url 'dashboard' %}">
@@ -155,14 +160,19 @@ src="https://www.paypal.com/sdk/js?client-id=AYKM0L2kQVcDhtVWwWiYLZchmy8vuLhCGGz
 <div class="container">
     <div class="row">
       <div class="col">
-        <div class="list-group">
-          <div class="list-group-item-custom list-group-item">
-            Donors:
+        <div class="row">
+          <div class="list-group">
+            <div class="list-group-item-custom list-group-item">
+              Donors:
+            </div>
+            {% for prof in profs %}
+            <div class="list-group-item">{{prof.user_name}}</div>
+            {% endfor %}
           </div>
-          {% for prof in profs %}
-          <div class="list-group-item">{{prof.user_name}}</div>
-          {% endfor %}
-          </div>
+        </div>
+        <div class="row center-content">
+          <a class="btn btn-lg btn-custom-secondary">Go to Comments</a>
+        </div>
       </div>
         <div class="col">
             <div style="text-align: center; padding: 3em;">

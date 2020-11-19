@@ -76,6 +76,17 @@
     color: white;
     font-weight: bold;
   }
+  .level {
+    border-radius: 30px;
+    background-color: #f79256;
+    color: white;
+    font-size: xx-large;
+    font-weight: bold;
+    margin-left: 2%;
+    margin-right: 2%;
+    padding-left: 1%;
+    padding-right: 1%;
+  }
 </style>
 <!-- Navbar -->
 <nav class="navbar navbar-dark navbar-expand-lg navbar-custom">
@@ -117,133 +128,54 @@
   {% if user.is_authenticated %}
   <div class="container">
     <div class="col">
-      <div class="row center-content">Current XP: {{ xp }} <br /></div>
-      <div class="row center-content">Level {{ level }} Contributor</div>
-      <div class="row center-content">
-        <div class="progress" style="height: 25px; width: 50%; margin: 0 auto">
+      <!-- Progress Bar -->
+      <div class="row" style="margin-top: 2em">
+        <div class="col">
+          <div class="level center-content">Level {{ level }}</div>
+        </div>
+        <div class="col-8">
           <div
-            class="progress-bar"
-            role="progressbar"
-            style="width:{{ percent }}%"
-            aria-valuenow="{{ percent }}"
-            aria-valuemin="0"
-            aria-valuemax="100"
+            class="progress"
+            style="height: 4em; width: 100%; border-radius: 20px"
           >
-            {{ percent }}%
+            <div
+              class="progress-bar progress-bar-striped progress-bar-animated"
+              role="progressbar"
+              style="width: {{ percent }}%; background-color: #f79256"
+              aria-valuenow="{{ percent }}"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            >
+              {{ percent }}%
+            </div>
           </div>
         </div>
-        <br />
+        <div class="col">
+          <div class="level center-content">{{ xp }} XP</div>
+        </div>
       </div>
-      <div class="row center-content">
-        <p>Need {{ needed }} XP for next level!</p>
+      <div
+        class="row center-content"
+        style="color: white; margin-top: 10px; font-size: large;"
+      >
+        Need {{ needed }} XP for next level!
       </div>
+    </div>
+  </div>
       {% endif %}
     </div>
   </div>
 </div>
-<!-- Filters -->
+<!-- Middle Bar -->
 <div class="filter-bg center-content">
   <!-- Causes Filter -->
-  <div class="btn-group">
-    <button
-      class="btn btn-lg dropdown-toggle"
-      type="button"
-      data-toggle="dropdown"
-      id="causes"
-    >
-      <svg
-        width="24px"
-        height="24px"
-        viewBox="0 0 16 16"
-        class="bi bi-heart-fill"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          fill-rule="evenodd"
-          d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
-        />
-      </svg>
-      Causes
-      <span class="caret"></span>
-    </button>
-    <form
-      class="dropdown-menu p-4"
-      aria-labelledby="causes"
-      style="background-color: #fbd1a2; border: none"
-    >
-      <div class="form-group">
-        <div class="form-check">
-          <input
-            type="checkbox"
-            class="form-check-input"
-            id="civilrights-check"
-          />
-          <label class="form-check-label" for="civilrights-check">
-            Civil Rights
-          </label>
-        </div>
-        <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="cancer-check" />
-          <label class="form-check-label" for="cancer-check"> Cancer </label>
-        </div>
-        <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="animal-check" />
-          <label class="form-check-label" for="animal-check"> Animal </label>
-        </div>
-        <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="disabled-check" />
-          <label class="form-check-label" for="disabled-check">
-            Disabled
-          </label>
-        </div>
-      </div>
-      <button type="submit" class="btn btn-primary btn-custom-primary">
-        Apply Filters
-      </button>
-    </form>
-  </div>
-  <span class="h4">|</span>
-  <!-- Location Filter -->
-  <div class="btn-group">
-    <button
-      class="btn btn-lg dropdown-toggle"
-      type="button"
-      data-toggle="dropdown"
-      id="location"
-    >
-      <svg
-        width="24px"
-        height="24px"
-        viewBox="0 0 16 16"
-        class="bi bi-geo-alt-fill"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          fill-rule="evenodd"
-          d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"
-        />
-      </svg>
-      Location
-      <span class="caret"></span>
-    </button>
-    <form
-      class="dropdown-menu p-4"
-      aria-labelledby="location"
-      style="background-color: #fbd1a2; border: none"
-    >
-      <div class="form-group">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Enter location..."
-          style="width: 20em"
-        />
-      </div>
-      <button type="submit" class="btn btn-primary btn-custom-primary">
-        Search
-      </button>
-    </form>
-  </div>
+  <a style="font-weight: bolder; font-size: large; color: inherit" href="{% url 'leaderboard' %}">
+  <svg width="25px" height="25px" viewBox="0 0 16 16" class="bi bi-list-stars" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5z"/>
+    <path d="M2.242 2.194a.27.27 0 0 1 .516 0l.162.53c.035.115.14.194.258.194h.551c.259 0 .37.333.164.493l-.468.363a.277.277 0 0 0-.094.3l.173.569c.078.256-.213.462-.423.3l-.417-.324a.267.267 0 0 0-.328 0l-.417.323c-.21.163-.5-.043-.423-.299l.173-.57a.277.277 0 0 0-.094-.299l-.468-.363c-.206-.16-.095-.493.164-.493h.55a.271.271 0 0 0 .259-.194l.162-.53zm0 4a.27.27 0 0 1 .516 0l.162.53c.035.115.14.194.258.194h.551c.259 0 .37.333.164.493l-.468.363a.277.277 0 0 0-.094.3l.173.569c.078.255-.213.462-.423.3l-.417-.324a.267.267 0 0 0-.328 0l-.417.323c-.21.163-.5-.043-.423-.299l.173-.57a.277.277 0 0 0-.094-.299l-.468-.363c-.206-.16-.095-.493.164-.493h.55a.271.271 0 0 0 .259-.194l.162-.53zm0 4a.27.27 0 0 1 .516 0l.162.53c.035.115.14.194.258.194h.551c.259 0 .37.333.164.493l-.468.363a.277.277 0 0 0-.094.3l.173.569c.078.255-.213.462-.423.3l-.417-.324a.267.267 0 0 0-.328 0l-.417.323c-.21.163-.5-.043-.423-.299l.173-.57a.277.277 0 0 0-.094-.299l-.468-.363c-.206-.16-.095-.493.164-.493h.55a.271.271 0 0 0 .259-.194l.162-.53z"/>
+  </svg>
+  Leaderboard
+</a>
 </div>
 <!-- Opportunities -->
 
