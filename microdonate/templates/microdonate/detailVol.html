@@ -76,6 +76,11 @@
     border: none;
     color: white;
   }
+  .btn-custom-secondary {
+    background-color: #f79256;
+    border: none;
+    color: white;
+  }
 </style>
 <nav class="navbar navbar-dark navbar-expand-lg navbar-custom">
   <a class="navbar-brand mb-0 h1" href="{% url 'dashboard' %}">
@@ -129,6 +134,7 @@
           {% csrf_token %}
           <div class="center-content">
           <button class="btn btn-lg btn-custom-primary" type="submit">Sign Up!</button>
+          <a class="btn btn-lg btn-custom-secondary">Go to Comments</a>
         </div>
         </form>
     </div>
