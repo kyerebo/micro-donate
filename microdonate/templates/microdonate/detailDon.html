@@ -31,6 +31,14 @@ src="https://www.paypal.com/sdk/js?client-id=AYKM0L2kQVcDhtVWwWiYLZchmy8vuLhCGGz
     function setAmount(value){
         amount = value;
     }
+    function setCustom(){
+      amount = document.getElementById('custom-donation').value;
+      document.getElementById('option1label').classList.remove("active");
+      document.getElementById('option2label').classList.remove("active");
+      document.getElementById('option3label').classList.remove("active");
+      document.getElementById('option4label').classList.remove("active");
+      document.getElementById('customlabel').classList.add('active');
+    }
     paypal.Buttons({
     createOrder: function(data, actions) {
       // This function sets up the details of the transaction, including the amount and line item details.
@@ -177,18 +185,22 @@ src="https://www.paypal.com/sdk/js?client-id=AYKM0L2kQVcDhtVWwWiYLZchmy8vuLhCGGz
         <div class="col">
             <div style="text-align: center; padding: 3em;">
             <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-lg btn-warning active">
+                <label id="option1label" class="btn btn-lg btn-warning active">
                   <input type="radio" name="options" id="option1" onclick="setAmount('5.00');" checked> $5
                 </label>
-                <label class="btn btn-lg btn-warning">
+                <label id="option2label" class="btn btn-lg btn-warning">
                   <input type="radio" name="options" id="option2" onclick="setAmount('10.00');"> $10
                 </label>
-                <label class="btn btn-lg btn-warning">
+                <label id="option3label" class="btn btn-lg btn-warning">
                   <input type="radio" name="options" id="option3" onclick="setAmount('20.00');"> $20
                 </label>
-                <label class="btn btn-lg btn-warning">
+                <label id="option4label" class="btn btn-lg btn-warning">
                     <input type="radio" name="options" id="option4" onclick="setAmount('50.00');"> $50
-                  </label>
+                </label>
+                <label id="customlabel" id="custom" class="btn btn-lg btn-warning">
+                  <input type="radio" name="options" id="option5"> Custom
+              </label>
+              <input style="height: 50px" type="number" class="form-control" id="custom-donation" onchange="setCustom();" step="1" value="1.00" min="1.00" max="200.00">
               </div>
             </div>
             <div id="paypal-button-container"></div>
