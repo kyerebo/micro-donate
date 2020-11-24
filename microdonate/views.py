@@ -29,19 +29,7 @@ def index(request):
         needed = levels[level+1] - prof.xp
 
     user = request.user
-    # temp_names = ['name 1','name 2','name 3']
-    # temp_orgs = ['org 1', 'org 2', 'org 3']
-    # temp_goals = [100, 200, 300]
-    # temp_descriptions = ['description 1', 'description 2', 'description 3']
-    # # the next 3 lines are temp
-    # Volunteer.objects.all().delete()
-    # for i in range(len(temp_names)):
-    #     Volunteer.objects.create(volunteer_name=temp_names[i], organization_name=temp_orgs[i], goal=temp_goals[i], description=temp_descriptions[i])
     volunteer = Volunteer.objects.all()
-    # # the next 3 lines are temp
-    # Donate.objects.all().delete()
-    # for i in range(len(temp_names)):
-    #     Donate.objects.create(donate_name=temp_names[i], organization_name=temp_orgs[i], goal=temp_goals[i], description=temp_descriptions[i])
     donate = Donate.objects.all()
     context = {
         'level' : level,
@@ -99,32 +87,76 @@ def profile(request):
     else:
         return HttpResponseRedirect(reverse('mainlogin'))
 
-def comments(request):
-    comments = Comments.objects.all()
-    temp = loader.get_template('microdonate/comments.html')
+def donate_comments(request, opp_id):
+    op = Donate.objects.get(pk=opp_id)
+    comments = op.comments
+    temp = loader.get_template('microdonate/donate_comments.html')
 
     context = {
-        'comments': comments
+        'op': op,
+        'comments': comments,
+        'opp_id' : opp_id
     }
 
     return HttpResponse(temp.render(context,request))
 
-def submit(request):
+def donate_submit(request, opp_id):
+    # temp = opp_id
+    op = Donate.objects.get(pk=opp_id)
     left_comment = Comments(comments_title='',comments_text='',pub_date=timezone.now())
     title = request.POST.get('comments_title', '<No Title>')
     text = request.POST.get('comments_text', '<No Body>')
     left_comment.comments_title = title if title else '<No Title>'
     left_comment.comments_text = text if text else '<No Title>'
     left_comment.save()
+    op.comments.add(left_comment)
     return HttpResponseRedirect('list')
 
-def comments_list(request):
-    comments = Comments.objects.all()
+def donate_comments_list(request, opp_id):
+    op = Donate.objects.get(pk=opp_id)
+    comments = op.comments.all()
     context = {
-        'comments': comments
+        'op': op,
+        'comments': comments,
+        'opp_id' : opp_id
     }
 
-    return HttpResponse(loader.get_template('microdonate/comments_list.html').render(context,request))
+    return HttpResponse(loader.get_template('microdonate/donate_comments_list.html').render(context,request))
+
+def volunteer_comments(request, opp_id):
+    op = Volunteer.objects.get(pk=opp_id)
+    comments = op.comments
+    temp = loader.get_template('microdonate/volunteer_comments.html')
+
+    context = {
+        'op': op,
+        'comments': comments,
+        'opp_id' : opp_id
+    }
+
+    return HttpResponse(temp.render(context,request))
+
+def volunteer_submit(request, opp_id):
+    op = Volunteer.objects.get(pk=opp_id)
+    left_comment = Comments(comments_title='',comments_text='',pub_date=timezone.now())
+    title = request.POST.get('comments_title', '<No Title>')
+    text = request.POST.get('comments_text', '<No Body>')
+    left_comment.comments_title = title if title else '<No Title>'
+    left_comment.comments_text = text if text else '<No Title>'
+    left_comment.save()
+    op.comments.add(left_comment)
+    return HttpResponseRedirect('list')
+
+def volunteer_comments_list(request, opp_id):
+    op = Volunteer.objects.get(pk=opp_id)
+    comments = op.comments.all()
+    context = {
+        'op': op,
+        'comments': comments,
+        'opp_id' : opp_id
+    }
+
+    return HttpResponse(loader.get_template('microdonate/volunteer_comments_list.html').render(context,request))
 
 def detVol(request, opp_id):
     op = Volunteer.objects.get(pk=opp_id)
@@ -139,13 +171,15 @@ def detVol(request, opp_id):
         'signedup' : isSignedUp,
         'profs' : op.volunteer_users.all(),
         'loc' : locateString,
+        'opp_id' : opp_id
     })
 
 def detDon(request, opp_id):
     op = Donate.objects.get(pk=opp_id)
     return render(request, 'microdonate/detailDon.html', {
         'op' : op,
-        'profs' : op.donate_users.all()
+        'profs' : op.donate_users.all(),
+        'opp_id' : opp_id
     })
 def about(request):
     return render(request, 'microdonate/about.html', {
@@ -162,8 +196,6 @@ def leaderboard(request):
     })
 def submitDonation(request, opp_id):
     op = Donate.objects.get(pk=opp_id)
-    #do payment stuff here
-    #need to find a way to push donation amount through this into donation confirmation page
     return HttpResponseRedirect(reverse('confirmDonation', args=(opp_id, )))
 def confirmDonation(request, opp_id):
     op = Donate.objects.get(pk=opp_id)

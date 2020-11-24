@@ -135,32 +135,54 @@
     </button>
     <div class="collapse navbar-collapse" id="microdonate-navbar">
       <div class="navbar-nav ml-auto">
+        <a class="nav-link active" href="{% url 'dashboard' %}">Dashboard</a>
+        <div class="nav-link active">|</div>
         <a class="nav-link active" href="{% url 'about' %}">How does it work?</a>
         <div class="nav-link active">|</div>
         <a class="nav-link active" href="{% url 'leaderboard' %}">Leaderboard</a>
         <div class="nav-link active">|</div>
         <a class="nav-link active" href="{% url 'profile' %}">My Profile</a>
         <div class="nav-link active">|</div>
-        <span class="nav-link active">Welcome {{user.username}}!</span>
+        <span class="nav-link active">Welcome <span style="text-transform: capitalize">{{user.username}}</span>!</span>
       </div>
     </div>
   </nav>
   <div class="bg center-content">
     <div class="card-container">
       <h1>How it Works</h1>
+      <hr>
+      <h3>What's the purpose for this website?</h3>
       <body>
         The Coders for Charity Microdonate site works by connecting users to organizations
         for the purpose of fulfilling much-needed requests for charitable contributions of
         time and/or money through donation/volunteering "opportunities" which are made available
-        to the site's users. Organizations reach out directly to the site's founders to have their
-        opportunities vetted and posted, and users can sign up or donate directly from our site. Users
-        then gain experience points based on their contributions at a rate ascertained by the site
+        to the site's users. 
+      </body>
+      <hr>
+      <h3>How does the XP system work?</h3>
+      <body>
+        Users can gain experience points based on their contributions at a rate ascertained by the site
         administrators in conjunction with the participating organizations. These experience points provide users
         with 'levels,' which unlock particular reward tiers for users in which they can receive gifts from the 
-        participating organizations. Users' xp values are also posted on a "leaderboard," where users can compete
-        to see who contributes the most in their community, and how far they have to go to catch up. Users are also able
-        to leave comments/reviews on organizations to ensure trustworthiness of donations and efficacy of associated charities.
-        If you have any questions, feel free to reach out by comment/email and in the meantime, thanks for using the site!
+        participating organizations. Users' XP values are also posted on a "leaderboard," where users can compete
+        to see who contributes the most in their community, and how far they have to go to catch up.
+      </body>
+      <hr>
+      <h3>How do I add my organization?</h3>
+      <body>
+        Organizations reach out directly to the site's founders to have their opportunities vetted and posted, 
+        and users can sign up or donate directly from our site.
+      </body>
+      <hr>
+      <h3>Comments</h3>
+      <body>
+        Users are also able to leave comments/reviews on organizations to ensure trustworthiness of donations 
+        and efficacy of associated charities.
+      </body>
+      <hr>
+      <h3>Want to reach us?</h3>
+      <body>
+        If you have any questions, feel free to reach out by comment and in the meantime, thanks for using the site!
       </body>
       <div class="d-flex justify-content-center">
         <a class="btn btn-custom-primary btn-lg" href="{% url 'dashboard' %}"
