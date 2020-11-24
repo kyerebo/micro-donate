@@ -40,14 +40,13 @@
   }
   .bg {
     background-image: linear-gradient(
-        to bottom,
-        rgba(125, 207, 182, 1),
-        rgba(0, 0, 0, 0.2)
-      ),
-      url("https://images.unsplash.com/photo-1593113598332-cd288d649433?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80");
+      to bottom,
+      rgb(125, 207, 182),
+      rgb(251, 209, 162)
+    );
     height: 100%;
-    background-size: cover;
-    background-position: center;
+    display: flex;
+    justify-content: center;
   }
   .profile-container {
     padding-left: 3em;
@@ -83,14 +82,16 @@
     overflow: scroll;
   }
   .list-group-item-custom {
-    background-color: #7dcfb6;
+    background-color: #f79256;
     color: white;
     font-weight: bold;
+    font-size: x-large;
+    padding: 1em;
   }
   .list-group-item-prof {
-      background-color: rgba(255, 237, 136, 0.863);
-      color: black;
-      font-weight: bold;
+    background-color: rgb(251, 209, 162);
+    color: black;
+    font-weight: bold;
   }
   .list-group::-webkit-scrollbar {
     display: none;
@@ -99,6 +100,8 @@
   .list-group {
     -ms-overflow-style: none;
     scrollbar-width: none;
+    width: 80%;
+    margin-top: 10vh;
   }
 </style>
 <!-- Navbar -->
@@ -139,26 +142,27 @@
     </div>
   </div>
 </nav>
-<h1> Leaderboard </h1>
-<ol class="list-group">
-    
-    {% for Profile in board %}
-    {% if Profile.user_name == user.username %}
-        <li class="list-group-item list-group-item-prof">
-            <img
+<div class="bg">
+  <ol class="list-group">
+    <li class="list-group-item-custom">Leaderboard</li>
+    {% for Profile in board %} {% if Profile.user_name == user.username %}
+    <li class="list-group-item list-group-item-prof">
+      <img
         src="{{ user.socialaccount_set.all.0.get_avatar_url }}"
         style="border-radius: 50px"
-            />
-            <span style="text-transform: capitalize">{{Profile.user_name}}</span>       {{Profile.xp}}
-        </li>
+      />
+      <span style="text-transform: capitalize">{{Profile.user_name}}</span>
+      {{Profile.xp}}
+    </li>
     {% else %}
-        <li class="list-group-item">
-            <img
+    <li class="list-group-item">
+      <img
         src="{{ Profile.account.socialaccount_set.all.0.get_avatar_url }}"
         style="border-radius: 50px"
-            />
-            <span style="text-transform: capitalize">{{Profile.user_name}}</span>       {{Profile.xp}}
-        </li>
-    {% endif %}
-    {% endfor %}
-</ol>
+      />
+      <span style="text-transform: capitalize">{{Profile.user_name}}</span>
+      {{Profile.xp}}
+    </li>
+    {% endif %} {% endfor %}
+  </ol>
+</div>
