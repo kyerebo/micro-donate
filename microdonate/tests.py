@@ -123,13 +123,178 @@ class CommentsTesting(TestCase):
     def test_title(self):
         c = Comments.objects.create(comments_title='test title')
         self.assertEqual(c.comments_title,'test title')
-
-# class leaderboardTest(TestCase):
-    #def test_leaderboard(self):
-        #a = Profile.objects.create(account=None, user_name="qwerty", xp=200)
-        #b = Profile.objects.create(account=None, user_name="b", xp=350)
-        #response = self.client.get(reverse('leaderboard'))
-        #self.assertContains(response, "qwerty")
+    
+    def test_donate_comments(self):
+        c = Comments.objects.create(comments_title='title', comments_text='text')
+        donate = Donate.objects.create()
+        donate.comments.add(c)
+        self.assertEqual(len(donate.comments.all()),1)
+    
+    def test_donate_comments_multiple(self):
+        num = 10
+        donate = Donate.objects.create()
+        for i in range(num):
+            c = Comments.objects.create(comments_title='title', comments_text='text')
+            donate.comments.add(c)
+        self.assertEqual(len(donate.comments.all()),num)
+    
+    def test_donate_comments_multiple_different(self):
+        num = 10
+        donate = Donate.objects.create()
+        for i in range(num):
+            c = Comments.objects.create(comments_title='title'+str(i), comments_text='text'+str(i))
+            donate.comments.add(c)
+        self.assertEqual(len(donate.comments.all()),num)
+    
+    def test_donate_comments_multiple_more(self):
+        num = 20
+        donate = Donate.objects.create()
+        for i in range(num):
+            c = Comments.objects.create(comments_title='title', comments_text='text')
+            donate.comments.add(c)
+        self.assertEqual(len(donate.comments.all()),num)
+    
+    def test_donate_comments_multiple_different_more(self):
+        num = 20
+        donate = Donate.objects.create()
+        for i in range(num):
+            c = Comments.objects.create(comments_title='title'+str(i), comments_text='text'+str(i))
+            donate.comments.add(c)
+        self.assertEqual(len(donate.comments.all()),num)
+    
+    def test_donate_comments_multiple_equal_text(self):
+        num = 10
+        donate = Donate.objects.create()
+        for i in range(num):
+            c = Comments.objects.create(comments_title='title', comments_text='text')
+            donate.comments.add(c)
+        count = 0
+        for i in donate.comments.all():
+            if count==2:
+                self.assertEqual(i.comments_text,'text')
+            count+=1
+    
+    def test_donate_comments_multiple_equal_title(self):
+        num = 10
+        donate = Donate.objects.create()
+        for i in range(num):
+            c = Comments.objects.create(comments_title='title', comments_text='text')
+            donate.comments.add(c)
+        count = 0
+        for i in donate.comments.all():
+            if count==2:
+                self.assertEqual(i.comments_title,'title')
+            count+=1
+    
+    def test_donate_comments_multiple_different_equal_text(self):
+        num = 10
+        donate = Donate.objects.create()
+        for i in range(num):
+            c = Comments.objects.create(comments_title='title'+str(i), comments_text='text'+str(i))
+            donate.comments.add(c)
+        count = 0
+        for i in donate.comments.all():
+            if count==2:
+                self.assertEqual(i.comments_text,'text2')
+            count+=1
+    
+    def test_donate_comments_multiple_different_equal_title(self):
+        num = 10
+        donate = Donate.objects.create()
+        for i in range(num):
+            c = Comments.objects.create(comments_title='title'+str(i), comments_text='text'+str(i))
+            donate.comments.add(c)
+        count = 0
+        for i in donate.comments.all():
+            if count==2:
+                self.assertEqual(i.comments_title,'title2')
+            count+=1
+    
+    def test_volunteer_comments(self):
+        c = Comments.objects.create(comments_title='title', comments_text='text')
+        v = Volunteer.objects.create()
+        v.comments.add(c)
+        self.assertEqual(len(v.comments.all()),1)
+    
+    def test_volunteer_comments_multiple(self):
+        num = 10
+        v = Volunteer.objects.create()
+        for i in range(num):
+            c = Comments.objects.create(comments_title='title', comments_text='text')
+            v.comments.add(c)
+        self.assertEqual(len(v.comments.all()),num)
+    
+    def test_volunteer_comments_multiple_different(self):
+        num = 10
+        v = Volunteer.objects.create()
+        for i in range(num):
+            c = Comments.objects.create(comments_title='title'+str(i), comments_text='text'+str(i))
+            v.comments.add(c)
+        self.assertEqual(len(v.comments.all()),num)
+    
+    def test_volunteer_comments_multiple_more(self):
+        num = 20
+        v = Volunteer.objects.create()
+        for i in range(num):
+            c = Comments.objects.create(comments_title='title', comments_text='text')
+            v.comments.add(c)
+        self.assertEqual(len(v.comments.all()),num)
+    
+    def test_volunteer_comments_multiple_different_more(self):
+        num = 20
+        v = Volunteer.objects.create()
+        for i in range(num):
+            c = Comments.objects.create(comments_title='title'+str(i), comments_text='text'+str(i))
+            v.comments.add(c)
+        self.assertEqual(len(v.comments.all()),num)
+    
+    def test_volunteer_comments_multiple_equal_text(self):
+        num = 10
+        v = Volunteer.objects.create()
+        for i in range(num):
+            c = Comments.objects.create(comments_title='title', comments_text='text')
+            v.comments.add(c)
+        count = 0
+        for i in v.comments.all():
+            if count==2:
+                self.assertEqual(i.comments_text,'text')
+            count+=1
+    
+    def test_volunteer_comments_multiple_equal_title(self):
+        num = 10
+        v = Volunteer.objects.create()
+        for i in range(num):
+            c = Comments.objects.create(comments_title='title', comments_text='text')
+            v.comments.add(c)
+        count = 0
+        for i in v.comments.all():
+            if count==2:
+                self.assertEqual(i.comments_title,'title')
+            count+=1
+    
+    def test_volunteer_comments_multiple_different_equal_text(self):
+        num = 10
+        v = Volunteer.objects.create()
+        for i in range(num):
+            c = Comments.objects.create(comments_title='title'+str(i), comments_text='text'+str(i))
+            v.comments.add(c)
+        count = 0
+        for i in v.comments.all():
+            if count==2:
+                self.assertEqual(i.comments_text,'text2')
+            count+=1
+    
+    def test_volunteer_comments_multiple_different_equal_title(self):
+        num = 10
+        v = Volunteer.objects.create()
+        for i in range(num):
+            c = Comments.objects.create(comments_title='title'+str(i), comments_text='text'+str(i))
+            v.comments.add(c)
+        count = 0
+        for i in v.comments.all():
+            if count==2:
+                self.assertEqual(i.comments_title,'title2')
+            count+=1
         
 
 class XPUpdateTest(TestCase):
