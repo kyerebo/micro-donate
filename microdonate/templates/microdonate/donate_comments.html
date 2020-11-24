@@ -40,9 +40,14 @@
     padding-top: 3em;
     padding-bottom: 3em;
   }
+  .center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   .card-container {
     padding: 3em;
-    width: 80%;
+    width: 60%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     background-color: white;
     border-radius: 10px;
@@ -54,25 +59,20 @@
     font-size: xx-large;
     color: white;
   }
-  .center-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .card-title {
-    margin-left: 1em;
-    margin-top: 0.5em;
-    font-weight: bolder;
-    font-size: xx-large;
-    color: white;
-  }
-  .list-group-item-custom {
+  .btn-custom-primary {
     background-color: #f79256;
     color: white;
-    font-weight: bold;
-    font-size: x-large;
+    border: none;
+  }
+  .btn-custom-secondary {
+    background-color: #f79256;
+    border: none;
+    color: white;
   }
 </style>
+{% if error_message %}
+<p><strong>{{ error_message }}</strong></p>
+{% endif %}
 <nav class="navbar navbar-dark navbar-expand-lg navbar-custom">
   <a class="navbar-brand mb-0 h1" href="{% url 'dashboard' %}">
     <img
@@ -97,37 +97,57 @@
   </button>
   <div class="collapse navbar-collapse" id="microdonate-navbar">
     <div class="navbar-nav ml-auto">
-      <a class="nav-link active" href="{% url 'about' %}">How does it work?</a>
+      <a class="nav-link active" href="{% url 'dashboard' %}">Dashboard</a>
+      <div class="nav-link active">|</div>
+      <a class="nav-link active" href="#">How does it work?</a>
       <div class="nav-link active">|</div>
       <a class="nav-link active" href="{% url 'leaderboard' %}">Leaderboard</a>
       <div class="nav-link active">|</div>
       <a class="nav-link active" href="{% url 'profile' %}">My Profile</a>
       <div class="nav-link active">|</div>
-      <span class="nav-link active">Welcome {{user.username}}!</span>
+      <span class="nav-link active">Welcome <span style="text-transform: capitalize">{{user.username}}</span>!</span>
     </div>
   </div>
 </nav>
 <div class="bg center-content">
-  <div
-    class="list-group"
-    style="
-      width: 80%;
-      margin-top: 3em;
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
-        0 6px 20px 0 rgba(0, 0, 0, 0.19);
-      margin-bottom: 3em;
-    "
-  >
-    <div class="list-group-item list-group-item-custom">Comments</div>
-    {% if comments %} {% for comment in comments %}
-    <div class="list-group-item">
-      <div class="d-flex w-100 justify-content-between">
-        <h5 class="mb-1">{{comment.comments_title }}</h5>
-      </div>
-      <p class="mb-1">{{comment.comments_text}}</p>
+  <div class="card-container">
+    <div
+      class="row"
+      style="background-color: #f79256; border-radius: 50px; margin-bottom: 1em"
+    >
+      <div class="card-title">Leave a comment for {{op.donate_name}}</div>
     </div>
-    {% endfor %} {% else %}
-    <p>No comments available.</p>
-    {% endif %}
+    <form id="comment-form" action="{% url 'donate_submit' opp_id %}" method="post">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="comments_title">Title</label>
+        <input
+          class="form-control"
+          type="text"
+          id="comments_title"
+          name="comments_title"
+          value=""
+        />
+      </div>
+      <div class="form-group">
+        <label for="comments_text">Body</label>
+        <textarea
+          form="comment-form"
+          class="form-control"
+          style="height: 9em; resize: none"
+          type="text"
+          id="comments_text"
+          name="comments_text"
+          value=""
+        ></textarea>
+      </div>
+      <input
+        class="btn btn-custom-primary"
+        style="float: right"
+        type="submit"
+        value="Submit"
+      />
+    </form>
+    <a style="width:200px;height:40px;font-size:1rem" href="{% url 'donate_comments_list' opp_id %}" class="btn btn-lg btn-custom-secondary">See Current Comments</a>
   </div>
 </div>

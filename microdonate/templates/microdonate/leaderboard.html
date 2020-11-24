@@ -126,13 +126,15 @@
   </button>
   <div class="collapse navbar-collapse" id="microdonate-navbar">
     <div class="navbar-nav ml-auto">
+      <a class="nav-link active" href="{% url 'dashboard' %}">Dashboard</a>
+      <div class="nav-link active">|</div>
       <a class="nav-link active" href="{% url 'about' %}">How does it work?</a>
       <div class="nav-link active">|</div>
       <a class="nav-link active" href="{% url 'leaderboard' %}">Leaderboard</a>
       <div class="nav-link active">|</div>
       <a class="nav-link active" href="{% url 'profile' %}">My Profile</a>
       <div class="nav-link active">|</div>
-      <span class="nav-link active">Welcome {{user.username}}!</span>
+      <span class="nav-link active">Welcome <span style="text-transform: capitalize">{{user.username}}</span>!</span>
     </div>
   </div>
 </nav>
@@ -146,7 +148,7 @@
         src="{{ user.socialaccount_set.all.0.get_avatar_url }}"
         style="border-radius: 50px"
             />
-            {{Profile.user_name}}       {{Profile.xp}}
+            <span style="text-transform: capitalize">{{Profile.user_name}}</span>       {{Profile.xp}}
         </li>
     {% else %}
         <li class="list-group-item">
@@ -154,7 +156,7 @@
         src="{{ Profile.account.socialaccount_set.all.0.get_avatar_url }}"
         style="border-radius: 50px"
             />
-            {{Profile.user_name}}       {{Profile.xp}}
+            <span style="text-transform: capitalize">{{Profile.user_name}}</span>       {{Profile.xp}}
         </li>
     {% endif %}
     {% endfor %}
