@@ -134,9 +134,9 @@
           {% csrf_token %}
           <div class="center-content">
           {% if signedup %}
-          <button class="btn btn-lg btn-custom-primary" type="submit">Sign Up!</button>
-          {% else %}
           You're Signed Up!
+          {% else %}
+          <button class="btn btn-lg btn-custom-primary" type="submit">Sign Up!</button>
           {% endif %}
           <a class="btn btn-lg btn-custom-secondary">Go to Comments</a>
         </div>
