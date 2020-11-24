@@ -133,7 +133,7 @@
         <form action="{% url 'signup' op.id %}" method="POST">
           {% csrf_token %}
           <div class="center-content">
-          {% if {{signedup}} %}
+          {% if signedup %}
           <button class="btn btn-lg btn-custom-primary" type="submit">Sign Up!</button>
           {% else %}
           You're Signed Up!
