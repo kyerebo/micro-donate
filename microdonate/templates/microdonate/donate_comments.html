@@ -64,11 +64,6 @@
     color: white;
     border: none;
   }
-  .btn-custom-secondary {
-    background-color: #f79256;
-    border: none;
-    color: white;
-  }
 </style>
 {% if error_message %}
 <p><strong>{{ error_message }}</strong></p>
@@ -99,13 +94,16 @@
     <div class="navbar-nav ml-auto">
       <a class="nav-link active" href="{% url 'dashboard' %}">Dashboard</a>
       <div class="nav-link active">|</div>
-      <a class="nav-link active" href="#">How does it work?</a>
+      <a class="nav-link active" href="{% url 'about' %}">How does it work?</a>
       <div class="nav-link active">|</div>
       <a class="nav-link active" href="{% url 'leaderboard' %}">Leaderboard</a>
       <div class="nav-link active">|</div>
       <a class="nav-link active" href="{% url 'profile' %}">My Profile</a>
       <div class="nav-link active">|</div>
-      <span class="nav-link active">Welcome <span style="text-transform: capitalize">{{user.username}}</span>!</span>
+      <span class="nav-link active"
+        >Welcome
+        <span style="text-transform: capitalize">{{user.username}}</span>!</span
+      >
     </div>
   </div>
 </nav>
@@ -117,7 +115,11 @@
     >
       <div class="card-title">Leave a comment for {{op.donate_name}}</div>
     </div>
-    <form id="comment-form" action="{% url 'donate_submit' opp_id %}" method="post">
+    <form
+      id="comment-form"
+      action="{% url 'donate_submit' opp_id %}"
+      method="post"
+    >
       {% csrf_token %}
       <div class="form-group">
         <label for="comments_title">Title</label>
@@ -148,6 +150,10 @@
         value="Submit"
       />
     </form>
-    <a style="width:200px;height:40px;font-size:1rem" href="{% url 'donate_comments_list' opp_id %}" class="btn btn-lg btn-custom-secondary">See Current Comments</a>
+    <a
+      href="{% url 'donate_comments_list' opp_id %}"
+      class="btn btn-custom-primary"
+      >See Current Comments</a
+    >
   </div>
 </div>
